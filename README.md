@@ -1,4 +1,10 @@
-# ribbonprint
+# Ribbon printing software
+
+Click [here](https://tranquil-taffy-c57164.netlify.app) to get to the web-app.
+
+## Usage
+
+Use 'Noto' font for special characters. Recommended font for Vietnamese is 'Playfair'. 
 
 ## Project setup
 ```
