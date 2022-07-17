@@ -1,5 +1,13 @@
 <script>
 import jsPDF from 'jspdf'
+import '@/assets/Noto/Noto-bold.js'
+import '@/assets/Noto/Noto-italic.js'
+import '@/assets/Noto/Noto-normal.js'
+import '@/assets/Noto/Noto-bolditalic.js'
+import '@/assets/Playfair/Playfair-bold.js'
+import '@/assets/Playfair/Playfair-italic.js'
+import '@/assets/Playfair/Playfair-normal.js'
+import '@/assets/Playfair/Playfair-bolditalic.js'
 
 export default {
   data() {
@@ -17,23 +25,27 @@ export default {
   methods: {
     download() {
       var text = this.text;
-      var height = text.split("\n").length * (this.size / 0.7);
+      var height = text.split("\n").length * this.size * 1.3;
       var mode = 'p';
       if (this.width > height) {
         mode = 'l';
       }
       console.log(height);
+      console.log(mode);
+
       var doc = new jsPDF(mode, 'mm', [this.width, height]);
+      console.log(doc.getFontList());
       let style = this.bold ? 'bold' : '';
       style = style += this.italic ? 'italic' : '';
       if (style == '') {
         style = 'normal';
       }
+
       console.log(style);
       doc.setFont(this.font, style);
-      doc.setFontSize(this.size / 0.37);
+      doc.setFontSize(this.size / 0.35);
       var xOffset = this.width / 2;
-      var yOffset = height / 2 - (this.size / 0.7);
+      var yOffset = this.size;
       doc.text(text, xOffset, yOffset, null, null, 'center');
       doc.save("schleife.pdf");
     }
@@ -58,10 +70,11 @@ export default {
           </div>
 
           <select class="form-select" id="fonts" v-model="font">
-            <option value="arial">Arial</option>
-            <option value="verdana">Verdana</option>
-            <option value="times">Times New Roman</option>
-            <option value="georgia">Georgia</option>
+            <option value="courier">Courier</option>
+            <option value="times">Times</option>
+            <option value="helvetica">Helvetica</option>
+            <option value="Noto">Noto</option>
+            <option value="Playfair">Playfair</option>
           </select>
         </div>
       </div>
