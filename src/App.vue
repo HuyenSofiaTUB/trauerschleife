@@ -1,22 +1,22 @@
 <template>
-  <HelloWorld msg="Welcome to Your Vue.js App" />
+  <RibbonEditor/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import RibbonEditor from './components/RibbonEditor.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    RibbonEditor
+}
 }
 </script>
 
 <style>
 #app {
   background-color: rgb(204, 204, 204);
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

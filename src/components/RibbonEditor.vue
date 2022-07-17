@@ -55,11 +55,11 @@ export default {
 
 <template>
   <div class="container">
-    <div class="row mt-2">
+    <div class="row justify-content-center mt-3">
 
-      <textarea class="form-control" v-model="text" placeholder="Type here" style="height: 5em"></textarea>
+      <textarea class="form-control" v-model="text" placeholder="Type here" style="width: 20em; height: 5em"></textarea>
     </div>
-    <div class="row justify-content-sm-center mt-2">
+    <div class="row justify-content-center mt-3">
       <div class="col-sm-auto">
 
         <div class="input-group">
@@ -111,7 +111,7 @@ export default {
 
     </div>
 
-    <div class="row mt-2">
+    <div class="row justify-content-center mt-3">
 
       <div class="page" v-bind:style="{ 'width': width + 'mm' }">
         <br>
@@ -130,7 +130,7 @@ export default {
       </div>
 
     </div>
-    <div class="row justify-content-sm-center mt-2">
+    <div class="row justify-content-center mt-3">
       <div class="col-sm-auto">
 
         <button type="button" class="btn btn-primary btn-lg" @click="download">download</button>
@@ -143,7 +143,6 @@ export default {
 div.page {
   background: white;
   display: block;
-  margin: 0 auto;
   box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
   height: auto;
 }
