@@ -15,14 +15,62 @@ export default {
 
 <style>
 #app {
-  background-color:  rgb(204, 204, 204);
+  background-color: rgb(204, 204, 204);
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #000000;
 }
+
 html {
-    background-color:  rgb(204, 204, 204);
+  background-color: rgb(204, 204, 204);
+}
+
+@font-face {
+  font-family: Noto;
+  src: url(./assets/Noto/NotoSerif-Regular.ttf);
+}
+
+@font-face {
+  font-family: Noto;
+  src: url(./assets/Noto/NotoSerif-Bold.ttf);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Noto;
+  src: url(./assets/Noto/NotoSerif-Italic.ttf);
+  font-style: italic;
+}
+
+@font-face {
+  font-family: Noto;
+  src: url(./assets/Noto/NotoSerif-BoldItalic.ttf);
+  font-weight: bold;
+  font-style: italic;
+}
+@font-face {
+  font-family: Playfair;
+  src: url(./assets/Playfair/PlayfairDisplay-Regular.ttf);
+}
+
+@font-face {
+  font-family: Playfair;
+  src: url(./assets/Playfair/PlayfairDisplay-Bold.ttf);
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Playfair;
+  src: url(./assets/Playfair/PlayfairDisplay-Italic.ttf);
+  font-style: italic;
+}
+
+@font-face {
+  font-family: Playfair;
+  src: url(./assets/Playfair/PlayfairDisplay-BoldItalic.ttf);
+  font-weight: bold;
+  font-style: italic;
 }
 </style>
