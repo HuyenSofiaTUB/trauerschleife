@@ -17,10 +17,13 @@ export default {
   methods: {
     download() {
       var text = this.text;
-      var size = this.size / 0.35;
-      var height = text.split("\n").length * size;
+      var height = text.split("\n").length * (this.size / 0.7);
+      var mode = 'p';
+      if (this.width > height) {
+        mode = 'l';
+      }
       console.log(height);
-      var doc = new jsPDF('l', 'mm', [this.width, height]);
+      var doc = new jsPDF(mode, 'mm', [this.width, height]);
       let style = this.bold ? 'bold' : '';
       style = style += this.italic ? 'italic' : '';
       if (style == '') {
@@ -28,11 +31,11 @@ export default {
       }
       console.log(style);
       doc.setFont(this.font, style);
-      doc.setFontSize(size);
-      var xOffset = (this.width / 2);
-      var yOffset = (height / 2);
+      doc.setFontSize(this.size / 0.37);
+      var xOffset = this.width / 2;
+      var yOffset = height / 2 - (this.size / 0.7);
       doc.text(text, xOffset, yOffset, null, null, 'center');
-      doc.save("meow.pdf");
+      doc.save("schleife.pdf");
     }
   }
 }
@@ -40,47 +43,62 @@ export default {
 
 <template>
   <div class="container">
-    <div class="row">
-      <textarea v-model="text" placeholder="Type here"></textarea>
+    <div class="row mt-2">
+
+      <textarea class="form-control" v-model="text" placeholder="Type here" style="height: 5em"></textarea>
     </div>
-    <div class="row">
-      <div class="col-sm">
+    <div class="row justify-content-sm-center mt-2">
+      <div class="col-sm-auto">
 
-        <label for="fonts"> Font: </label>
-      </div>
-      <div class="col-sm">
-        <select id="fonts" name="fonts" v-model="font">
-          <option value="arial">Arial</option>
-          <option value="verdana">Verdana</option>
-          <option value="times">Times New Roman</option>
-          <option value="georgia">Georgia</option>
-        </select>
-      </div>
-      <div class="col-sm">
-        <label for="fonts"> Size: </label>
-      </div>
-      <div class="col-sm">
-        <input v-model="size" type="number" style="width: 5em">
-      </div>
-      <div class="col-1">
-        <input type="checkbox" id="bold" v-model="bold">
-        <label for="bold"> b</label><br>
-      </div>
-      <div class="col-1">
-        <input type="checkbox" id="italic" v-model="italic">
-        <label for="italic"> i</label><br>
-      </div>
-      <div class="col-1">
-        <input type="checkbox" id="underlined" v-model="underlined">
-        <label for="underlined"> u</label><br>
-      </div>
-      <div class="col-sm">
+        <div class="input-group">
 
-        <button type="button" @click="download">download</button>
+          <div class="input-group-prepend">
+
+            <label class="input-group-text" for="fonts"> Font: </label>
+          </div>
+
+          <select class="form-select" id="fonts" v-model="font">
+            <option value="arial">Arial</option>
+            <option value="verdana">Verdana</option>
+            <option value="times">Times New Roman</option>
+            <option value="georgia">Georgia</option>
+          </select>
+        </div>
       </div>
+
+      <div class="col-sm-auto">
+        <div class="input-group">
+
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="size"> Size: </label>
+          </div>
+          <input class="form-control" v-model="size" id="size" type="number" style="width: 4em">
+        </div>
+      </div>
+
+      <div class="col-sm-auto">
+        <div class="form-check form-check-inline">
+
+          <input class="form-check-input" type="checkbox" id="bold" v-model="bold">
+          <label class="form-check-label" for="bold"> b</label>
+        </div>
+
+        <div class="form-check form-check-inline">
+
+          <input class="form-check-input" type="checkbox" id="italic" v-model="italic">
+          <label class="form-check-label" for="italic"> i</label><br>
+        </div>
+
+        <div class="form-check form-check-inline">
+
+          <input class="form-check-input" type="checkbox" id="underlined" v-model="underlined">
+          <label class="form-check-label" for="underlined"> u</label><br>
+        </div>
+      </div>
+
     </div>
 
-    <div class="row">
+    <div class="row mt-2">
 
       <div class="page" v-bind:style="{ 'width': width + 'mm' }">
         <br>
@@ -98,6 +116,12 @@ export default {
         <br>
       </div>
 
+    </div>
+    <div class="row justify-content-sm-center mt-2">
+      <div class="col-sm-auto">
+
+        <button type="button" class="btn btn-primary btn-lg" @click="download">download</button>
+      </div>
     </div>
   </div>
 </template>
