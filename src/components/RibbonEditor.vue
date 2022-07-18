@@ -20,12 +20,12 @@ export default {
       italic: false,
       underlined: false,
       settings: {
-        pic: 'none',
+        pic: 'pray1.png',
         width: 100,
         rotated: false,
         imgSize: 20,
         margin: 10,
-        pos: 0
+        pos: "above"
       },
     }
   },
@@ -38,6 +38,7 @@ export default {
       this.settings.imgSize = settings.imgSize;
       this.settings.margin = settings.margin;
       this.settings.pos = settings.pos;
+      console.log(this.settings.pos);
     },
     download() {
       var text = this.text;
@@ -143,10 +144,10 @@ export default {
 
     </div>
     <div class="row justify-content-center mt-3">
-      <div class="page" v-bind:style="{
+      <div class="page" :style="{
         'width': settings.width + 'mm',
       }">
-        <p class="print" v-bind:style="{
+        <p class="print" :style="{
           'font-weight': (bold ? 'bold' : 'normal'),
           'text-decoration': (underlined ? 'underline' : 'none'),
           'font-style': (italic ? 'italic' : 'normal'),
@@ -162,7 +163,8 @@ export default {
     <div class="row justify-content-center mt-3">
 
       <div class="col-sm-auto">
-        <edit-modal @madechanges="saveChanges"></edit-modal>
+        <edit-modal :pic="settings.pic" :width="settings.width" :rotated="settings.rotated" :imgSize="settings.imgSize" :margin="settings.margin" :pos="settings.pos"
+          @madechanges="saveChanges"></edit-modal>
       </div>
 
       <div class="col-sm-auto">

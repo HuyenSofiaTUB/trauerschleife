@@ -4,23 +4,39 @@ export default {
     data() {
         return {
             settings: {
-                pic: 'none',
-                width: 100,
-                rotated: false,
-                imgSize: 20,
-                margin: 10,
-                pos: 0
+                pic: this.pic,
+                width: this.width,
+                rotated: this.rotated,
+                imgSize: this.imgSize,
+                margin: this.margin,
+                pos: this.pos
             },
         }
     },
     methods: {
-    }
+        reset() {
+            this.settings.pic = this.pic;
+            this.settings.width = this.width;
+            this.settings.rotated = this.rotated;
+            this.settings.imgSize = this.imgSize;
+            this.settings.margin = this.margin;
+            this.settings.pos = this.pos;
+        }
+    },
+    props: {
+        pic: String,
+        width: Number,
+        rotated: Boolean,
+        imgSize: Number,
+        margin: Number,
+        pos: String
+    },
 }
 </script>
 
 <template>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-primary btn-lg" @click="reset" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Edit
     </button>
 
@@ -48,7 +64,8 @@ export default {
 
                             <div class="col-sm-auto">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="rotate" v-model="settings.rotated">
+                                    <input class="form-check-input" type="checkbox" id="rotate"
+                                        v-model="settings.rotated">
                                     <label class="form-check-label" for="rotate">vertical text</label>
                                 </div>
                             </div>
@@ -69,10 +86,10 @@ export default {
 
                                         <select class="form-select" id="motifs" v-model="settings.pic">
                                             <option value="none">none</option>
-                                            <option value="rose1">rose1</option>
-                                            <option value="angel1">angel1</option>
-                                            <option value="pray1">pray1</option>
-                                            <option value="dove1">dove1</option>
+                                            <option value="rose1.png">rose1</option>
+                                            <option value="angel1.png">angel1</option>
+                                            <option value="pray1.png">pray1</option>
+                                            <option value="dove1.png">dove1</option>
                                         </select>
 
                                     </div>
@@ -86,8 +103,8 @@ export default {
                                                 <label class="input-group-text" for="size"> size </label>
                                             </div>
 
-                                            <input class="form-control" v-model="settings.imgSize" id="size" type="number"
-                                                style="width: 6em">
+                                            <input class="form-control" v-model="settings.imgSize" id="size"
+                                                type="number" style="width: 6em">
 
                                         </div>
                                     </div>
@@ -99,8 +116,8 @@ export default {
                                                 <label class="input-group-text" for="margin"> margin </label>
                                             </div>
 
-                                            <input class="form-control" v-model="settings.margin" id="margin" type="number"
-                                                style="width: 6em">
+                                            <input class="form-control" v-model="settings.margin" id="margin"
+                                                type="number" style="width: 6em">
 
                                         </div>
                                     </div>
@@ -110,12 +127,12 @@ export default {
 
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="position" id="above"
-                                                v-model="settings.pos" value="0">
+                                                v-model="settings.pos" value="above">
                                             <label class="form-check-label" for="above">above</label>
                                         </div>
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="position" id="below"
-                                                v-model="settings.pos" value="1">
+                                                v-model="settings.pos" value="below">
                                             <label class="form-check-label" for="below">below</label>
                                         </div>
                                     </div>
@@ -123,7 +140,7 @@ export default {
                             </div>
 
                             <div class="col-sm-auto">
-                                <img src="../assets/motifs/pray1.png" class="rounded float-left"
+                                <img :src="require('../assets/motifs/' + settings.pic)" class="rounded float-left"
                                     style="width: 7em; height: auto">
                             </div>
 
@@ -133,7 +150,8 @@ export default {
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" @click="$emit('madechanges', this.settings)">Save changes</button>
+                    <button type="button" class="btn btn-primary" data-bs-dismiss="modal"
+                        @click="$emit('madechanges', this.settings)">Save changes</button>
                 </div>
             </div>
         </div>
