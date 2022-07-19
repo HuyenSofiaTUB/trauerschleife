@@ -19,62 +19,55 @@ export default {
       bold: false,
       italic: false,
       underlined: false,
-      settings: {
-        pic: 'pray1.png',
-        width: 100,
-        rotated: false,
-        imgSize: 20,
-        margin: 10,
-        pos: "above"
-      },
+      pic: 'none',
+      width: 100,
+      rotated: false,
+      imgSize: 10,
+      margin: 5,
+      pos: "above"
     }
   },
   methods: {
     saveChanges(settings) {
       console.log("got new data");
-      this.settings.pic = settings.pic;
-      this.settings.width = settings.width;
-      this.settings.rotated = settings.rotated;
-      this.settings.imgSize = settings.imgSize;
-      this.settings.margin = settings.margin;
-      this.settings.pos = settings.pos;
-      console.log(this.settings.pos);
+      this.pic = settings.pic;
+      this.width = settings.width;
+      this.rotated = settings.rotated;
+      this.imgSize = settings.imgSize;
+      this.margin = settings.margin;
+      this.pos = settings.pos;
+      console.log(this.pos);
     },
     download() {
       var text = this.text;
-      var width = this.settings.width;
-      var height, angle, xOffset, yOffset;
-
-      if (this.settings.rotated) {
-        height = text.length * this.size;
-        angle = -90;
-        xOffset = width - this.size * 1.3;
-        yOffset = height / 4;
-      } else {
-        height = text.split("\n").length * this.size * 1.3;
-        angle = 0;
-        yOffset = this.size;
-        xOffset = width / 2;
-      }
-
-      var mode = 'p';
-      if (width > height) {
-        mode = 'l';
-      }
-      console.log(height);
-      console.log(mode);
-
+      var width = this.width
+      var height = this.rotated ? ((text.length + 2) * this.size * 0.5) : (text.split("\n").length * this.size * 1.2)
+      var mode = (this.width > height || this.rotated) ? 'l' : 'p';
       var doc = new jsPDF(mode, 'mm', [width, height]);
-      console.log(doc.getFontList());
-      let style = this.bold ? 'bold' : '';
+      var style = this.bold ? 'bold' : '';
       style = style += this.italic ? 'italic' : '';
       if (style == '') {
         style = 'normal';
       }
-
-      console.log(style);
       doc.setFont(this.font, style);
-      doc.setFontSize(this.size / 0.35);
+      doc.setFontSize(this.size / 0.353);
+      console.log(text.split("\n").length);
+
+      var angle = 0, xOffset, yOffset;
+      if (this.rotated) {
+      xOffset = height / 2;
+      yOffset = (width+this.size/2) / 2
+      } else {
+      xOffset = width / 2;
+      yOffset = this.size * 0.8;
+
+      }
+
+
+      if (this.pic != 'none') {
+        doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", xOffset, height - this.imgSize / 0.353, this.imgSize, this.imgSize);
+      }
+
       doc.text(text, xOffset, yOffset, null, angle, 'center');
       doc.save("schleife.pdf");
     }
@@ -145,7 +138,7 @@ export default {
     </div>
     <div class="row justify-content-center mt-3">
       <div class="page" :style="{
-        'width': settings.width + 'mm',
+        'width': width + 'mm',
       }">
         <p class="print" :style="{
           'font-weight': (bold ? 'bold' : 'normal'),
@@ -153,7 +146,7 @@ export default {
           'font-style': (italic ? 'italic' : 'normal'),
           'font-family': font,
           'font-size': size + 'mm',
-          'writing-mode': settings.rotated ? 'vertical-rl' : 'horizontal-tb'
+          'writing-mode': rotated ? 'vertical-rl' : 'horizontal-tb'
         }">
           {{ text }}
         </p>
@@ -163,7 +156,7 @@ export default {
     <div class="row justify-content-center mt-3">
 
       <div class="col-sm-auto">
-        <edit-modal :pic="settings.pic" :width="settings.width" :rotated="settings.rotated" :imgSize="settings.imgSize" :margin="settings.margin" :pos="settings.pos"
+        <edit-modal :pic="pic" :width="width" :rotated="rotated" :imgSize="imgSize" :margin="margin" :pos="pos"
           @madechanges="saveChanges"></edit-modal>
       </div>
 
@@ -187,7 +180,7 @@ div.page {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 2em 0em;
+  padding: 5mm 0mm 5mm 0mm;
 }
 
 p.print {

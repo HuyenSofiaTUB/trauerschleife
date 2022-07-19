@@ -86,10 +86,10 @@ export default {
 
                                         <select class="form-select" id="motifs" v-model="settings.pic">
                                             <option value="none">none</option>
-                                            <option value="rose1.png">rose1</option>
-                                            <option value="angel1.png">angel1</option>
-                                            <option value="pray1.png">pray1</option>
-                                            <option value="dove1.png">dove1</option>
+                                            <option value="rose1">rose1</option>
+                                            <option value="angel1">angel1</option>
+                                            <option value="pray1">pray1</option>
+                                            <option value="dove1">dove1</option>
                                         </select>
 
                                     </div>
@@ -140,7 +140,7 @@ export default {
                             </div>
 
                             <div class="col-sm-auto">
-                                <img :src="require('../assets/motifs/' + settings.pic)" class="rounded float-left"
+                                <img :src="(settings.pic != 'none') ? require('../assets/motifs/' + settings.pic + '.png') : ''" class="rounded float-left"
                                     style="width: 7em; height: auto">
                             </div>
 
