@@ -83,7 +83,7 @@ export default {
     <div class="row justify-content-center mt-3">
       <textarea class="form-control" v-model="text" placeholder="Type here" style="width: 20em; height: 5em"></textarea>
     </div>
-    <div class="row justify-content-center mt-3">
+    <div class="row justify-content-center align-items-center mt-3">
 
       <div class="col-sm-auto">
         <div class="input-group">
@@ -136,19 +136,17 @@ export default {
 
     </div>
     <div class="row justify-content-center mt-3">
-      <div class="col-sm-auto page" :style="{
+      <div class="page" :style="{
         'width': width + 'mm',
       }">
-        <div class="row">
-          <div class="col-align-self-center">
-            <img :src="(pic != 'none' && pos == 'above') ? require('../assets/motifs/' + pic + '.png') : ''"
-              class="float-center" :style="{
-                'width': imgSize + 'mm',
-                'padding': '0mm 0mm ' + margin + 'mm 0mm'
-              }">
+        <div class="d-flex flex-column">
+          <div>
+            <img :src="(pic != 'none' && pos == 'above') ? require('../assets/motifs/' + pic + '.png') : ''" class="float-center" :style="{
+              'width': imgSize + 'mm',
+              'padding': (pic != 'none' && pos == 'above') ? ('0mm 0mm ' + margin + 'mm 0mm') : ('0mm 0mm'),
+            }">
           </div>
-          <div class="col-align-self-center">
-
+          <div>
             <p class="print" :style="{
               'font-weight': (bold ? 'bold' : 'normal'),
               'text-decoration': (underlined ? 'underline' : 'none'),
@@ -160,11 +158,11 @@ export default {
               {{ text }}
             </p>
           </div>
-          <div class="col-align-self-center">
+          <div>
             <img :src="(pic != 'none' && pos == 'below') ? require('../assets/motifs/' + pic + '.png') : ''"
               class="float-center" :style="{
                 'width': imgSize + 'mm',
-                'padding': margin + 'mm 0mm' + '0mm 0mm '
+                'padding': (pic != 'none' && pos == 'below') ? (margin + 'mm 0mm 0mm 0mm') : ('0mm 0mm'),
               }">
           </div>
         </div>
