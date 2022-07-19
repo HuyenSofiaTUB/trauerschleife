@@ -22,8 +22,8 @@ export default {
       pic: 'none',
       width: 100,
       rotated: false,
-      imgSize: 10,
-      margin: 5,
+      imgSize: 20,
+      margin: 10,
       pos: "above"
     }
   },
@@ -55,17 +55,17 @@ export default {
 
       var angle = 0, xOffset, yOffset;
       if (this.rotated) {
-      xOffset = height / 2;
-      yOffset = (width+this.size/2) / 2
+        xOffset = height / 2;
+        yOffset = (width + this.size / 2) / 2
       } else {
-      xOffset = width / 2;
-      yOffset = this.size * 0.8;
+        xOffset = width / 2;
+        yOffset = this.size * 0.8;
 
       }
 
-      if (this.pic != 'none') {
-        doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", xOffset, height - this.imgSize / 0.353, this.imgSize, this.imgSize);
-      }
+      // if (this.pic != 'none') {
+      //   doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", xOffset, height - this.imgSize / 0.353, this.imgSize, this.imgSize);
+      // }
 
       doc.text(text, xOffset, yOffset, null, angle, 'center');
       doc.save("schleife.pdf");
@@ -136,19 +136,38 @@ export default {
 
     </div>
     <div class="row justify-content-center mt-3">
-      <div class="page" :style="{
+      <div class="col-sm-auto page" :style="{
         'width': width + 'mm',
       }">
-        <p class="print" :style="{
-          'font-weight': (bold ? 'bold' : 'normal'),
-          'text-decoration': (underlined ? 'underline' : 'none'),
-          'font-style': (italic ? 'italic' : 'normal'),
-          'font-family': font,
-          'font-size': size + 'mm',
-          'writing-mode': rotated ? 'vertical-rl' : 'horizontal-tb'
-        }">
-          {{ text }}
-        </p>
+        <div class="row">
+          <div class="col-align-self-center">
+            <img :src="(pic != 'none' && pos == 'above') ? require('../assets/motifs/' + pic + '.png') : ''"
+              class="float-center" :style="{
+                'width': imgSize + 'mm',
+                'padding': '0mm 0mm ' + margin + 'mm 0mm'
+              }">
+          </div>
+          <div class="col-align-self-center">
+
+            <p class="print" :style="{
+              'font-weight': (bold ? 'bold' : 'normal'),
+              'text-decoration': (underlined ? 'underline' : 'none'),
+              'font-style': (italic ? 'italic' : 'normal'),
+              'font-family': font,
+              'font-size': size + 'mm',
+              'writing-mode': rotated ? 'vertical-rl' : 'horizontal-tb'
+            }">
+              {{ text }}
+            </p>
+          </div>
+          <div class="col-align-self-center">
+            <img :src="(pic != 'none' && pos == 'below') ? require('../assets/motifs/' + pic + '.png') : ''"
+              class="float-center" :style="{
+                'width': imgSize + 'mm',
+                'padding': margin + 'mm 0mm' + '0mm 0mm '
+              }">
+          </div>
+        </div>
       </div>
     </div>
 
@@ -179,7 +198,6 @@ div.page {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 5mm 0mm 5mm 0mm;
 }
 
 p.print {
