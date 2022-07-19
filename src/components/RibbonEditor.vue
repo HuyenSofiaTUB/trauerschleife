@@ -63,7 +63,6 @@ export default {
 
       }
 
-
       if (this.pic != 'none') {
         doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", xOffset, height - this.imgSize / 0.353, this.imgSize, this.imgSize);
       }
