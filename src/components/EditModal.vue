@@ -51,7 +51,6 @@ export default {
                 <div class="modal-body">
                     <form>
                         <div class="row align-items-center">
-
                             <div class="col-sm-auto">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
@@ -86,7 +85,6 @@ export default {
 
                                         <select class="form-select" id="motifs" v-model="settings.pic">
                                             <option value="none">none</option>
-                                            <option value="rose1">rose1</option>
                                             <option value="angel1">angel1</option>
                                             <option value="pray1">pray1</option>
                                             <option value="dove1">dove1</option>

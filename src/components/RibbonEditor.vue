@@ -139,14 +139,6 @@ export default {
       <div class="page" :style="{
         'width': width + 'mm',
       }">
-        <div class="d-flex flex-column">
-          <div>
-            <img :src="(pic != 'none' && pos == 'above') ? require('../assets/motifs/' + pic + '.png') : ''" class="float-center" :style="{
-              'width': imgSize + 'mm',
-              'padding': (pic != 'none' && pos == 'above') ? ('0mm 0mm ' + margin + 'mm 0mm') : ('0mm 0mm'),
-            }">
-          </div>
-          <div>
             <p class="print" :style="{
               'font-weight': (bold ? 'bold' : 'normal'),
               'text-decoration': (underlined ? 'underline' : 'none'),
@@ -157,15 +149,6 @@ export default {
             }">
               {{ text }}
             </p>
-          </div>
-          <div>
-            <img :src="(pic != 'none' && pos == 'below') ? require('../assets/motifs/' + pic + '.png') : ''"
-              class="float-center" :style="{
-                'width': imgSize + 'mm',
-                'padding': (pic != 'none' && pos == 'below') ? (margin + 'mm 0mm 0mm 0mm') : ('0mm 0mm'),
-              }">
-          </div>
-        </div>
       </div>
     </div>
 
