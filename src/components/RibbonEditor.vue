@@ -182,7 +182,7 @@ div.page {
 }
 
 p.print {
-  white-space: pre-line;
+  white-space: pre-wrap;
   line-height: 100%;
   color: black;
 }
