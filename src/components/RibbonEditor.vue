@@ -22,7 +22,7 @@ export default {
       pic: 'none',
       width: 100,
       rotated: false,
-      imgSize: 200,
+      imgSize: 100,
       margin: 10,
       pos: "above"
     }
@@ -195,7 +195,8 @@ export default {
 <style>
 div.page {
   background: white;
-  display: block;
+  display: flex;
+  flex-direction: column;
   box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
   height: auto;
   justify-content: center;
