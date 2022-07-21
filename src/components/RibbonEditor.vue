@@ -22,7 +22,7 @@ export default {
       pic: 'none',
       width: 100,
       rotated: false,
-      imgSize: 20,
+      imgSize: 200,
       margin: 10,
       pos: "above"
     }
@@ -36,7 +36,30 @@ export default {
       this.imgSize = settings.imgSize;
       this.margin = settings.margin;
       this.pos = settings.pos;
-      console.log(this.pos);
+
+      var elem = document.getElementById('print');
+      var child = document.getElementById('motif');
+      if (child != null) {
+        child.parentNode.removeChild(child);
+      }
+
+      if (this.pic != 'none') {
+        child = document.createElement("img");
+        child.setAttribute("id", "motif");
+        child.setAttribute("src", require("@/assets/motifs/" + this.pic + ".png"));
+        child.setAttribute("width", this.imgSize + "mm");
+        child.setAttribute("height", "auto");
+
+        if (this.pos == "above") {
+          child.setAttribute("style", "margin: 0mm auto " + this.margin + "mm auto;");
+          elem.before(child);
+        } else {
+          child.setAttribute("style", "margin: " + this.margin + "mm auto 0mm auto;");
+          elem.after(child);
+        }
+
+      }
+
     },
     download() {
       var text = this.text;
@@ -135,23 +158,22 @@ export default {
       </div>
 
     </div>
-    <div class="row justify-content-center mt-3">
-      <div class="page" :style="{
-        'width': width + 'mm',
-      }">
-            <p class="print" :style="{
-              'font-weight': (bold ? 'bold' : 'normal'),
-              'text-decoration': (underlined ? 'underline' : 'none'),
-              'font-style': (italic ? 'italic' : 'normal'),
-              'font-family': font,
-              'font-size': size + 'mm',
-              'writing-mode': rotated ? 'vertical-rl' : 'horizontal-tb'
-            }">
-              {{ text }}
-            </p>
-      </div>
-    </div>
-
+  </div>
+  <div class="page" :style="{
+    'width': width + 'mm',
+  }">
+    <p class="print" id="print" :style="{
+      'font-weight': (bold ? 'bold' : 'normal'),
+      'text-decoration': (underlined ? 'underline' : 'none'),
+      'font-style': (italic ? 'italic' : 'normal'),
+      'font-family': font,
+      'font-size': size + 'mm',
+      'writing-mode': rotated ? 'vertical-rl' : 'horizontal-tb'
+    }">
+      {{ text }}
+    </p>
+  </div>
+  <div class="container">
     <div class="row justify-content-center mt-3">
 
       <div class="col-sm-auto">
@@ -176,9 +198,10 @@ div.page {
   display: block;
   box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
   height: auto;
-  display: flex;
   justify-content: center;
   align-items: center;
+  margin: 3rem auto;
+  padding: 1rem 0rem;
 }
 
 p.print {
