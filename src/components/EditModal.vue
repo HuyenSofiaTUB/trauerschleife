@@ -36,13 +36,13 @@ export default {
 
 <template>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg" @click="reset" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-primary btn-lg mx-1" @click="reset" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Edit
     </button>
 
     <!-- Modal -->
     <div class="modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable modal-lg">
+        <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable modal-lg modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Edit Ribbon</h5>
@@ -157,4 +157,8 @@ export default {
 </template>
 
 <style>
+ .modal-backdrop {
+    z-index: 1000!important;
+    }
+
 </style>

@@ -1,14 +1,14 @@
 <template>
-  <RibbonEditor/>
+  <RibbonView/>
 </template>
 
 <script>
-import RibbonEditor from './components/RibbonEditor.vue'
+import RibbonView from './components/RibbonView.vue'
 
 export default {
   name: 'App',
   components: {
-    RibbonEditor
+    RibbonView
 }
 }
 </script>
@@ -74,3 +74,4 @@ html {
   font-style: italic;
 }
 </style>
+
