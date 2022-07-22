@@ -140,11 +140,11 @@ export default {
                                         <div class="btn-group" role="group" id="position" aria-label="motif position">
                                             <input type="radio" class="btn-check" name="position" id="above"
                                                 autocomplete="off" v-model="settings.pos" value="above">
-                                            <label class="btn btn-outline-primary" for="above">above</label>
+                                            <label class="btn btn-outline-secondary" for="above">above</label>
 
                                             <input type="radio" class="btn-check" name="position" id="below"
                                                 autocomplete="off" v-model="settings.pos" value="below">
-                                            <label class="btn btn-outline-primary" for="below">below</label>
+                                            <label class="btn btn-outline-secondary" for="below">below</label>
                                         </div>
                                     </div>
                                 </div>

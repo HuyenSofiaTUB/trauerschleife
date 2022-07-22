@@ -64,7 +64,7 @@ export default {
         download() {
             var text = this.text;
             var millimeter = 25.4 / 72;
-            var pixel = 96 / 72 ;
+            var pixel = 96 / 72;
             var width = this.width / millimeter;
             var height = document.getElementById('inner').offsetHeight / pixel;
             console.log({ width, height });
@@ -87,14 +87,21 @@ export default {
 
             var xOffset, yOffset;
             if (this.rotated) {
-                xOffset = height / 2;
                 yOffset = lineHeight / 2;
+                if (this.pic != 'none') {
+                    xOffset = (height - margin - imgSize) / 2;
+                    doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", height - imgSize, yOffset, imgSize, imgSize);
+                } else {
+                    xOffset = height / 2;
+                }
             } else {
                 xOffset = width / 2;
                 yOffset = lineHeight / 2;
-            }
-            if (this.pic != 'none') {
-                doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", xOffset, height - margin - imgSize, imgSize, imgSize);
+
+                if (this.pic != 'none') {
+                    yOffset = (height - margin - imgSize) / 2
+                    doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", xOffset, height - imgSize, imgSize, imgSize);
+                }
             }
 
             doc.text(text, xOffset, yOffset, null, null, 'center');
@@ -171,7 +178,7 @@ export default {
             </form>
         </div>
     </nav>
- 
+
     <div class="page" :style="{
         'width': width + 'mm',
     }">
@@ -237,13 +244,19 @@ p.print {
     width: 4em;
 }
 
-@media (max-width: 576px) {
+@media screen and (max-width: 575px) {
     div.page {
-        margin-top: 260px;
+        margin-top: 310px;
     }
 
     #size {
         width: auto;
+    }
+}
+
+@media screen and (min-width: 576px) and (max-width: 728px) {
+    div.page {
+        margin-top: 120px;
     }
 }
 </style>
