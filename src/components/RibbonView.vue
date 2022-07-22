@@ -1,5 +1,5 @@
 <script>
-// import jsPDF from 'jspdf'
+import jsPDF from 'jspdf'
 import '@/assets/Noto/Noto-bold.js'
 import '@/assets/Noto/Noto-italic.js'
 import '@/assets/Noto/Noto-normal.js'
@@ -62,6 +62,43 @@ export default {
             }
         },
         download() {
+            var text = this.text;
+            var millimeter = 25.4 / 72;
+            var pixel = 96 / 72 ;
+            var width = this.width / millimeter;
+            var height = document.getElementById('inner').offsetHeight / pixel;
+            console.log({ width, height });
+            var size = this.size / millimeter;
+            var imgSize = this.imgSize / millimeter;
+            var margin = this.margin / millimeter;
+
+            var mode = ((width > height && !this.rotated) || (width < height && this.rotated)) ? 'l' : 'p';
+            var doc = new jsPDF(mode, 'pt', [width, height]);
+
+            var style = this.bold ? 'bold' : '';
+            style = style += this.italic ? 'italic' : '';
+            if (style == '') {
+                style = 'normal';
+            }
+            doc.setFont(this.font, style);
+            doc.setFontSize(size);
+
+            var lineHeight = doc.getLineHeight();
+
+            var xOffset, yOffset;
+            if (this.rotated) {
+                xOffset = height / 2;
+                yOffset = lineHeight / 2;
+            } else {
+                xOffset = width / 2;
+                yOffset = lineHeight / 2;
+            }
+            if (this.pic != 'none') {
+                doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", xOffset, height - margin - imgSize, imgSize, imgSize);
+            }
+
+            doc.text(text, xOffset, yOffset, null, null, 'center');
+            doc.save("schleife.pdf");
         },
         decrease() {
             this.size--;
@@ -134,7 +171,7 @@ export default {
             </form>
         </div>
     </nav>
-
+ 
     <div class="page" :style="{
         'width': width + 'mm',
     }">
@@ -148,7 +185,7 @@ export default {
         }">
             {{ text }}
         </p>
-        <div class="inner">
+        <div class="inner" id="inner">
             <textarea autofocus class="form-control" v-model="text" placeholder="Type here"></textarea>
         </div>
     </div>
