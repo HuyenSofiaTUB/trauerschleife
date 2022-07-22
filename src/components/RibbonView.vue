@@ -62,6 +62,12 @@ export default {
             }
         },
         download() {
+        },
+        decrease() {
+            this.size--;
+        },
+        increase() {
+            this.size++;
         }
     },
     components: {
@@ -76,7 +82,13 @@ export default {
             <a class="navbar-brand">RibbonPrint</a>
             <form class="d-flex">
                 <div class="row justify-content-center align-items-center">
+
                     <div class="col-sm-auto p-1">
+                        <input class="btn-check" type="checkbox" id="rotate" v-model="rotated">
+                        <label class="btn btn-outline-secondary" for="rotate">rotate</label>
+
+                    </div>
+                    <div class="col p-1">
                         <select class="form-select" id="fonts" v-model="font">
                             <option value="courier">Courier</option>
                             <option value="times">Times</option>
@@ -86,22 +98,27 @@ export default {
                         </select>
                     </div>
                     <div class="col-sm-auto p-1">
-                        <input class="form-control" v-model="size" id="size" type="number">
-
+                        <div class="input-group">
+                            <button class="btn btn-outline-secondary" type="button" @click="decrease"
+                                id="dec">-</button>
+                            <input class="form-control" v-model="size" id="size" type="number">
+                            <button class="btn btn-outline-secondary" type="button" @click="increase"
+                                id="inc">+</button>
+                        </div>
                     </div>
                     <div class="col-sm-auto p-1">
 
                         <div class="btn-group" role="group" aria-label="styling">
                             <input class="btn-check" type="checkbox" id="bold" v-model="bold">
-                            <label class="btn btn-outline-primary" for="bold">b</label>
+                            <label class="btn btn-outline-secondary" for="bold">b</label>
 
 
                             <input class="btn-check" type="checkbox" id="italic" v-model="italic">
-                            <label class="btn btn-outline-primary" for="italic"> i</label>
+                            <label class="btn btn-outline-secondary" for="italic"> i</label>
 
 
                             <input class="btn-check" type="checkbox" id="underlined" v-model="underlined">
-                            <label class="btn btn-outline-primary" for="underlined"> u</label>
+                            <label class="btn btn-outline-secondary" for="underlined"> u</label>
                         </div>
 
                     </div>
@@ -180,7 +197,7 @@ p.print {
 }
 
 #size {
-    width: 5em;
+    width: 4em;
 }
 
 @media (max-width: 576px) {
@@ -189,7 +206,7 @@ p.print {
     }
 
     #size {
-        width: 100%;
+        width: auto;
     }
 }
 </style>

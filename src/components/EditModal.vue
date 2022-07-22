@@ -6,7 +6,6 @@ export default {
             settings: {
                 pic: this.pic,
                 width: this.width,
-                rotated: this.rotated,
                 imgSize: this.imgSize,
                 margin: this.margin,
                 pos: this.pos
@@ -17,16 +16,44 @@ export default {
         reset() {
             this.settings.pic = this.pic;
             this.settings.width = this.width;
-            this.settings.rotated = this.rotated;
             this.settings.imgSize = this.imgSize;
             this.settings.margin = this.margin;
             this.settings.pos = this.pos;
+        },
+        decrease(val) {
+            switch (val) {
+                case 'width':
+                    this.settings.width--;
+                    break;
+                case 'imgSize':
+                    this.settings.imgSize--;
+                    break;
+                case 'margin':
+                    this.settings.margin--;
+                    break;
+                default:
+                    break;
+            }
+        },
+        increase(val) {
+            switch (val) {
+                case 'width':
+                    this.settings.width++;
+                    break;
+                case 'imgSize':
+                    this.settings.imgSize++;
+                    break;
+                case 'margin':
+                    this.settings.margin++;
+                    break;
+                default:
+                    break;
+            }
         }
     },
     props: {
         pic: String,
         width: Number,
-        rotated: Boolean,
         imgSize: Number,
         margin: Number,
         pos: String
@@ -36,7 +63,8 @@ export default {
 
 <template>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-primary btn-lg mx-1" @click="reset" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button" class="btn btn-secondary btn-lg mx-1" @click="reset" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">
         Edit
     </button>
 
@@ -52,23 +80,16 @@ export default {
                     <form>
                         <div class="row align-items-center">
                             <div class="col-sm-auto">
+                                <label for="width" class="form-label">width</label>
                                 <div class="input-group">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text" for="width">width</div>
-                                    </div>
+                                    <button class="btn btn-outline-secondary" type="button"
+                                        @click="decrease('width')">-</button>
                                     <input type="number" class="form-control" id="width" placeholder="100"
                                         v-model="settings.width" style="width: 6em">
+                                    <button class="btn btn-outline-secondary" type="button"
+                                        @click="increase('width')">+</button>
                                 </div>
                             </div>
-
-                            <div class="col-sm-auto">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="rotate"
-                                        v-model="settings.rotated">
-                                    <label class="form-check-label" for="rotate">vertical text</label>
-                                </div>
-                            </div>
-
                         </div>
                     </form>
                     <hr>
@@ -77,12 +98,8 @@ export default {
 
                             <div class="col-sm-9">
                                 <div class="row mt-2">
+                                    <label for="motifs" class="form-label">motif</label>
                                     <div class="input-group">
-
-                                        <div class="input-group-prepend">
-                                            <label class="input-group-text" for="motifs"> motif </label>
-                                        </div>
-
                                         <select class="form-select" id="motifs" v-model="settings.pic">
                                             <option value="none">none</option>
                                             <option value="angel1">angel1</option>
@@ -94,52 +111,48 @@ export default {
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-sm-auto">
+                                        <label for="imgSize" class="form-label">size</label>
 
                                         <div class="input-group">
-
-                                            <div class="input-group-prepend">
-                                                <label class="input-group-text" for="size"> size </label>
-                                            </div>
-
-                                            <input class="form-control" v-model="settings.imgSize" id="size"
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                @click="decrease('imgSize')">-</button>
+                                            <input class="form-control" v-model="settings.imgSize" id="imgSize"
                                                 type="number" style="width: 6em">
-
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                @click="increase('imgSize')">+</button>
                                         </div>
                                     </div>
                                     <div class="col-sm-auto">
+                                        <label for="margin" class="form-label">margin</label>
 
                                         <div class="input-group">
-
-                                            <div class="input-group-prepend">
-                                                <label class="input-group-text" for="margin"> margin </label>
-                                            </div>
-
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                @click="decrease('margin')">-</button>
                                             <input class="form-control" v-model="settings.margin" id="margin"
                                                 type="number" style="width: 6em">
-
+                                            <button class="btn btn-outline-secondary" type="button"
+                                                @click="increase('margin')">+</button>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="row mt-2">
                                     <div class="col-sm-auto">
+                                        <div class="btn-group" role="group" id="position" aria-label="motif position">
+                                            <input type="radio" class="btn-check" name="position" id="above"
+                                                autocomplete="off" v-model="settings.pos" value="above">
+                                            <label class="btn btn-outline-primary" for="above">above</label>
 
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="position" id="above"
-                                                v-model="settings.pos" value="above">
-                                            <label class="form-check-label" for="above">above</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="position" id="below"
-                                                v-model="settings.pos" value="below">
-                                            <label class="form-check-label" for="below">below</label>
+                                            <input type="radio" class="btn-check" name="position" id="below"
+                                                autocomplete="off" v-model="settings.pos" value="below">
+                                            <label class="btn btn-outline-primary" for="below">below</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-sm-auto">
-                                <img :src="(settings.pic != 'none') ? require('../assets/motifs/' + settings.pic + '.png') : ''" class="rounded float-left"
-                                    style="width: 7em; height: auto">
+                                <img :src="(settings.pic != 'none') ? require('../assets/motifs/' + settings.pic + '.png') : ''"
+                                    class="rounded float-left" style="width: 7em; height: auto">
                             </div>
 
                         </div>
@@ -157,8 +170,7 @@ export default {
 </template>
 
 <style>
- .modal-backdrop {
-    z-index: 1000!important;
-    }
-
+.modal-backdrop {
+    z-index: 1000 !important;
+}
 </style>

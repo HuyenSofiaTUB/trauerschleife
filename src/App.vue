@@ -27,6 +27,15 @@ html {
   background-color: rgb(204, 204, 204);
 }
 
+input[type='number'] {
+    -moz-appearance:textfield;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
 @font-face {
   font-family: Noto;
   src: url(./assets/Noto/NotoSerif-Regular.ttf);
