@@ -63,7 +63,7 @@ export default {
 
 <template>
     <!-- Button trigger modal -->
-    <button type="button" class="btn btn-secondary btn-lg mx-1" @click="reset" data-bs-toggle="modal"
+    <button type="button" class="btn btn-secondary btn-lg ml-1" @click="reset" data-bs-toggle="modal"
         data-bs-target="#exampleModal">
         Edit
     </button>
@@ -117,7 +117,7 @@ export default {
                                             <button class="btn btn-outline-secondary" type="button"
                                                 @click="decrease('imgSize')">-</button>
                                             <input class="form-control" v-model="settings.imgSize" id="imgSize"
-                                                type="number" style="width: 6em">
+                                                type="number" style="width: 4em">
                                             <button class="btn btn-outline-secondary" type="button"
                                                 @click="increase('imgSize')">+</button>
                                         </div>
@@ -129,14 +129,14 @@ export default {
                                             <button class="btn btn-outline-secondary" type="button"
                                                 @click="decrease('margin')">-</button>
                                             <input class="form-control" v-model="settings.margin" id="margin"
-                                                type="number" style="width: 6em">
+                                                type="number" style="width: 4em">
                                             <button class="btn btn-outline-secondary" type="button"
                                                 @click="increase('margin')">+</button>
                                         </div>
+
                                     </div>
-                                </div>
-                                <div class="row mt-2">
                                     <div class="col-sm-auto">
+                                        <label for="position" class="form-label" style="display: block;">position</label>
                                         <div class="btn-group" role="group" id="position" aria-label="motif position">
                                             <input type="radio" class="btn-check" name="position" id="above"
                                                 autocomplete="off" v-model="settings.pos" value="above">
@@ -150,9 +150,9 @@ export default {
                                 </div>
                             </div>
 
-                            <div class="col-sm-auto">
+                            <div class="col">
                                 <img :src="(settings.pic != 'none') ? require('../assets/motifs/' + settings.pic + '.png') : ''"
-                                    class="rounded float-left" style="width: 7em; height: auto">
+                                    class="rounded mx-auto d-block" style="width: auto; height: 7em;">
                             </div>
 
                         </div>

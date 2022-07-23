@@ -96,11 +96,11 @@ export default {
                 }
             } else {
                 xOffset = width / 2;
-                yOffset = lineHeight / 2;
-
                 if (this.pic != 'none') {
                     yOffset = (height - margin - imgSize) / 2
                     doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", xOffset, height - imgSize, imgSize, imgSize);
+                } else {
+                    yOffset = lineHeight / 2;
                 }
             }
 
@@ -121,61 +121,80 @@ export default {
 </script>
 
 <template>
-    <nav class="navbar fixed-top navbar-light bg-light">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand">RibbonPrint</a>
-            <form class="d-flex">
-                <div class="row justify-content-center align-items-center">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
+                aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" aria-current="page" href="#">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="https://github.com/huyenngn/Schleifendruck">Github</a>
+                    </li>
+                </ul>
+                <form class="d-flex">
+                    <div class="row justify-content-center align-items-center">
+                        <div class="col p-1">
+                            <select class="form-select" id="fonts" v-model="font">
+                                <option value="courier">Courier</option>
+                                <option value="times">Times</option>
+                                <option value="helvetica">Helvetica</option>
+                                <option value="Noto">Noto</option>
+                                <option value="Playfair">Playfair</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-auto p-1">
+                            <div class="input-group">
+                                <button class="btn btn-outline-secondary" type="button" @click="decrease"
+                                    id="dec">-</button>
+                                <input class="form-control" v-model="size" id="size" type="number">
+                                <button class="btn btn-outline-secondary" type="button" @click="increase"
+                                    id="inc">+</button>
+                            </div>
+                        </div>
+                        <div class="col-sm-auto p-1">
+                            <div class="btn-group" role="group" aria-label="styling">
+                                <input class="btn-check" type="checkbox" id="bold" v-model="bold">
+                                <label class="btn btn-outline-secondary" for="bold">b</label>
 
-                    <div class="col-sm-auto p-1">
-                        <input class="btn-check" type="checkbox" id="rotate" v-model="rotated">
-                        <label class="btn btn-outline-secondary" for="rotate">rotate</label>
 
-                    </div>
-                    <div class="col p-1">
-                        <select class="form-select" id="fonts" v-model="font">
-                            <option value="courier">Courier</option>
-                            <option value="times">Times</option>
-                            <option value="helvetica">Helvetica</option>
-                            <option value="Noto">Noto</option>
-                            <option value="Playfair">Playfair</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-auto p-1">
-                        <div class="input-group">
-                            <button class="btn btn-outline-secondary" type="button" @click="decrease"
-                                id="dec">-</button>
-                            <input class="form-control" v-model="size" id="size" type="number">
-                            <button class="btn btn-outline-secondary" type="button" @click="increase"
-                                id="inc">+</button>
+                                <input class="btn-check" type="checkbox" id="italic" v-model="italic">
+                                <label class="btn btn-outline-secondary" for="italic"> i</label>
+
+
+                                <input class="btn-check" type="checkbox" id="underlined" v-model="underlined">
+                                <label class="btn btn-outline-secondary" for="underlined"> u</label>
+                            </div>
+
+                            <input class="btn-check" type="checkbox" id="rotate" v-model="rotated">
+                            <label class="btn btn-outline-secondary ms-2" for="rotate">rotate</label>
+
+                        </div>
+                        <div class="col-sm-auto p-1">
+                            <select class="form-select" id="samples" v-model="text">
+                                <option value="In stillem Gedenken">In stillem Gedenken</option>
+                                <option value="Ruhe sanft">Ruhe sanft</option>
+                                <option value="Als letzten Gruß">Als letzten Gruß</option>
+                                <option value="Ruhe in Frieden">Ruhe in Frieden</option>
+                                <option value="Unvergessen">Unvergessen</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-auto p-1">
+                            <edit-modal :pic="pic" :width="width" :imgSize="imgSize" :margin="margin"
+                                :pos="pos" @madechanges="saveChanges"></edit-modal>
+
+                            <button type="button" class="btn btn-primary btn-lg mx-1" @click="download">
+                                Print
+                            </button>
                         </div>
                     </div>
-                    <div class="col-sm-auto p-1">
-
-                        <div class="btn-group" role="group" aria-label="styling">
-                            <input class="btn-check" type="checkbox" id="bold" v-model="bold">
-                            <label class="btn btn-outline-secondary" for="bold">b</label>
-
-
-                            <input class="btn-check" type="checkbox" id="italic" v-model="italic">
-                            <label class="btn btn-outline-secondary" for="italic"> i</label>
-
-
-                            <input class="btn-check" type="checkbox" id="underlined" v-model="underlined">
-                            <label class="btn btn-outline-secondary" for="underlined"> u</label>
-                        </div>
-
-                    </div>
-                    <div class="col-sm-auto p-1">
-                        <edit-modal :pic="pic" :width="width" :rotated="rotated" :imgSize="imgSize" :margin="margin"
-                            :pos="pos" @madechanges="saveChanges"></edit-modal>
-
-                        <button type="button" class="btn btn-primary btn-lg mx-1" @click="download">
-                            Print
-                        </button>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </nav>
 
@@ -235,6 +254,7 @@ div.page {
 }
 
 p.print {
+    text-align: center;
     white-space: pre-wrap;
     line-height: 100%;
     color: black;
@@ -245,18 +265,17 @@ p.print {
 }
 
 @media screen and (max-width: 575px) {
-    div.page {
-        margin-top: 310px;
-    }
 
     #size {
         width: auto;
     }
 }
 
-@media screen and (min-width: 576px) and (max-width: 728px) {
+@media screen and (max-width: 991px) {
     div.page {
-        margin-top: 120px;
+        margin-top: 65px;
     }
 }
+
+
 </style>
