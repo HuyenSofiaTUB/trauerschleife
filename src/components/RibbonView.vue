@@ -154,7 +154,7 @@ export default {
 </script>
 
 <template>
-    <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
             <a class="navbar-brand">RibbonPrint</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
