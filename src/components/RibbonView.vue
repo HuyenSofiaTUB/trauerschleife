@@ -30,11 +30,19 @@ export default {
         }
     },
     methods: {
+        rotatePic() {
+            var angle = !this.rotated ? 90 : 0;
+            var styling = (this.pos == "above") ? ("margin: 0mm auto " + this.margin + "mm auto; width: " + this.imgSize + "mm; height: auto") : ("margin: " + this.margin + "mm auto 0mm auto; width: " + this.imgSize + "mm; height: auto");
+
+            var child = document.getElementById('motif');
+            if (child != null) {
+                child.setAttribute("style", styling + "; transform: rotate(" + angle + "deg)");
+            }
+        },
         saveChanges(settings) {
             console.log("got new data");
             this.pic = settings.pic;
             this.width = settings.width;
-            this.rotated = settings.rotated;
             this.imgSize = settings.imgSize;
             this.margin = settings.margin;
             this.pos = settings.pos;
@@ -52,14 +60,11 @@ export default {
                 child.setAttribute("width", this.imgSize + "mm");
                 child.setAttribute("height", "auto");
 
-                if (this.pos == "above") {
-                    child.setAttribute("style", "margin: 0mm auto " + this.margin + "mm auto; width: " + this.imgSize + "mm; height: auto");
-                    elem.before(child);
-                } else {
-                    child.setAttribute("style", "margin: " + this.margin + "mm auto 0mm auto; width: " + this.imgSize + "mm; height: auto");
-                    elem.after(child);
-                }
+                var angle = this.rotated ? 90 : 0;
+                var styling = (this.pos == "above") ? ("margin: 0mm auto " + this.margin + "mm auto; width: " + this.imgSize + "mm; height: auto") : ("margin: " + this.margin + "mm auto 0mm auto; width: " + this.imgSize + "mm; height: auto");
+                child.setAttribute("style", styling + "; transform: rotate(" + angle + "deg)");
 
+                elem.after(child);
             }
         },
         download() {
@@ -86,23 +91,43 @@ export default {
 
             var lineHeight = doc.getLineHeight();
             var lines = text.split("\n");
+            var textOffset = 0.75 * lineHeight - lines.length * 0.5 * lineHeight;
+
+            var hasPic = false;
+            if (this.pic != 'none') {
+                hasPic = true;
+            }
 
             var xOffset, yOffset;
             if (this.rotated) {
-                yOffset = width / 2 + 0.75 * lineHeight - lines.length * 0.5 * lineHeight;
-                if (this.pic != 'none') {
-                    xOffset = (height - margin - imgSize) / 2;
-                    doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", height - imgSize, yOffset, imgSize, imgSize);
-                } else {
-                    xOffset = height / 2;
+                yOffset = width / 2 + textOffset;
+                switch (true) {
+                    case (hasPic && this.pos == 'below'):
+                        xOffset = (height - margin - imgSize) / 2;
+                        doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", height - imgSize, (width - imgSize) / 2, imgSize, imgSize);
+                        break;
+                    case (hasPic):
+                        xOffset = (height + margin + imgSize) / 2;
+                        doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", 0, (width - imgSize) / 2, imgSize, imgSize);
+                        break;
+                    default:
+                        xOffset = height / 2;
+                        break;
                 }
             } else {
                 xOffset = width / 2;
-                if (this.pic != 'none') {
-                    yOffset = (height - margin - imgSize) / 2 + 0.75 * lineHeight - lines.length * 0.5 * lineHeight;
-                    doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", xOffset, height - imgSize, imgSize, imgSize);
-                } else {
-                    yOffset = height / 2 + 0.75 * lineHeight - lines.length * 0.5 * lineHeight;
+                switch (true) {
+                    case (hasPic && this.pos == 'below'):
+                        yOffset = (height - margin - imgSize) / 2 + 0.75 * lineHeight - lines.length * 0.5 * lineHeight;
+                        doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", (width - imgSize) / 2, height - imgSize, imgSize, imgSize);
+                        break;
+                    case (hasPic):
+                        yOffset = (height + margin + imgSize) / 2 + 0.75 * lineHeight - lines.length * 0.5 * lineHeight;
+                        doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", (width - imgSize) / 2, 0, imgSize, imgSize);
+                        break;
+                    default:
+                        yOffset = height / 2 + 0.75 * lineHeight - lines.length * 0.5 * lineHeight;
+                        break;
                 }
             }
 
@@ -176,7 +201,7 @@ export default {
                                 <label class="btn btn-outline-secondary" for="underlined"> u</label>
                             </div>
 
-                            <input class="btn-check" type="checkbox" id="rotate" v-model="rotated">
+                            <input class="btn-check" type="checkbox" @click="rotatePic" id="rotate" v-model="rotated">
                             <label class="btn btn-outline-secondary ms-2" for="rotate">rotate</label>
 
                         </div>
@@ -261,8 +286,14 @@ div.page {
 p.print {
     text-align: center;
     white-space: pre-wrap;
-    line-height: 100%;
+    line-height: 1.15;
     color: black;
+}
+
+.rotated {
+    transform: rotate(90deg) translateY(-100%);
+    -webkit-transform: rotate(90deg) translateY(-100%);
+    -ms-transform: rotate(90deg) translateY(-100%);
 }
 
 #size {
