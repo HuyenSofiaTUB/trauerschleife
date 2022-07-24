@@ -61,10 +61,13 @@ export default {
                 child.setAttribute("height", "auto");
 
                 var angle = this.rotated ? 90 : 0;
-                var styling = (this.pos == "above") ? ("margin: 0mm auto " + this.margin + "mm auto; width: " + this.imgSize + "mm; height: auto") : ("margin: " + this.margin + "mm auto 0mm auto; width: " + this.imgSize + "mm; height: auto");
-                child.setAttribute("style", styling + "; transform: rotate(" + angle + "deg)");
-
-                elem.after(child);
+                if (this.pos == "above") {
+                    child.setAttribute("style", "margin: 0mm auto " + this.margin + "mm auto; width: " + this.imgSize + "mm; height: auto; transform: rotate(" + angle + "deg)");
+                    elem.before(child);
+                } else {
+                    child.setAttribute("style", "margin: " + this.margin + "mm auto 0mm auto; width: " + this.imgSize + "mm; height: auto; transform: rotate(" + angle + "deg)");
+                    elem.after(child);
+                }
             }
         },
         download() {
