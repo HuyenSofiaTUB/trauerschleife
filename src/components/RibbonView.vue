@@ -9,6 +9,7 @@ import '@/assets/Playfair/Playfair-italic.js'
 import '@/assets/Playfair/Playfair-normal.js'
 import '@/assets/Playfair/Playfair-bolditalic.js'
 import EditModal from './EditModal.vue'
+import HelpModal from './HelpModal.vue'
 
 export default {
     name: 'RibbonView',
@@ -118,7 +119,8 @@ export default {
         }
     },
     components: {
-        'edit-modal': EditModal
+        'edit-modal': EditModal,
+        'help-modal': HelpModal
     }
 }
 </script>
@@ -134,7 +136,7 @@ export default {
             <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="#">About</a>
+                        <help-modal></help-modal>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://github.com/huyenngn/Schleifendruck">Github</a>
