@@ -154,7 +154,7 @@ export default {
 </script>
 
 <template>
-    <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light dock">
         <div class="container-fluid">
             <a class="navbar-brand">RibbonPrint</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
@@ -208,7 +208,7 @@ export default {
                             <label class="btn btn-outline-secondary ms-2" for="rotate">rotate</label>
 
                         </div>
-                        <div class="col-sm-auto p-1">
+                        <div class="col p-1">
                             <select class="form-select" id="samples" v-model="text">
                                 <option value="In stillem Gedenken">In stillem Gedenken</option>
                                 <option value="Ruhe sanft">Ruhe sanft</option>
@@ -282,7 +282,7 @@ div.page {
     justify-content: center;
     align-items: center;
     position: relative;
-    margin: 80px auto;
+    margin: 1.5rem auto;
     padding: 1rem 0rem;
 }
 
@@ -299,6 +299,12 @@ p.print {
     -ms-transform: rotate(90deg) translateY(-100%);
 }
 
+.dock {
+    border-radius: 10px;
+    padding: 1rem 1rem;
+    margin: 2.5rem 2rem;
+}
+
 #size {
     width: 4em;
 }
@@ -310,9 +316,9 @@ p.print {
     }
 }
 
-@media screen and (max-width: 991px) {
+/* @media screen and (max-width: 991px) {
     div.page {
         margin-top: 65px;
     }
-}
+} */
 </style>
