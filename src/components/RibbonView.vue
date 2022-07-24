@@ -84,10 +84,11 @@ export default {
             doc.setFontSize(size);
 
             var lineHeight = doc.getLineHeight();
+            var lines = text.split("\n");
 
             var xOffset, yOffset;
             if (this.rotated) {
-                yOffset = lineHeight / 2;
+                yOffset = width / 2 + 0.75*lineHeight - lines.length * 0.5 * lineHeight;
                 if (this.pic != 'none') {
                     xOffset = (height - margin - imgSize) / 2;
                     doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", height - imgSize, yOffset, imgSize, imgSize);
@@ -97,14 +98,14 @@ export default {
             } else {
                 xOffset = width / 2;
                 if (this.pic != 'none') {
-                    yOffset = (height - margin - imgSize) / 2
+                    yOffset = (height - margin - imgSize) / 2 + 0.75*lineHeight - lines.length * 0.5 * lineHeight;
                     doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", xOffset, height - imgSize, imgSize, imgSize);
                 } else {
-                    yOffset = lineHeight / 2;
+                    yOffset = height / 2 + 0.75*lineHeight - lines.length * 0.5 * lineHeight;
                 }
             }
 
-            doc.text(text, xOffset, yOffset, null, null, 'center');
+            doc.text(lines, xOffset, yOffset, null, null, 'center');
             doc.save("schleife.pdf");
         },
         decrease() {
