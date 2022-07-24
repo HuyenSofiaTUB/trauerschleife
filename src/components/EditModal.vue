@@ -107,6 +107,8 @@ export default {
                                             <option value="angel1">angel1</option>
                                             <option value="pray1">pray1</option>
                                             <option value="dove1">dove1</option>
+                                            <option value="cross1">cross1</option>
+                                            <option value="rose1">rose1</option>
                                         </select>
 
                                     </div>

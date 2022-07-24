@@ -74,7 +74,7 @@ export default {
             var width = this.width / millimeter;
             var height = document.getElementById('inner').offsetHeight / pixel;
             console.log({ width, height });
-            var size = this.size / millimeter;
+            var size = (this.size - 1) / millimeter;
             var imgSize = this.imgSize / millimeter;
             var margin = this.margin / millimeter;
 
