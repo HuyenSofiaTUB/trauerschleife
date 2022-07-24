@@ -20,7 +20,8 @@ export default {
             this.settings.margin = this.margin;
             this.settings.pos = this.pos;
         },
-        decrease(val) {
+        decrease(e, val) {
+            e.preventDefault();
             switch (val) {
                 case 'width':
                     this.settings.width--;
@@ -35,7 +36,8 @@ export default {
                     break;
             }
         },
-        increase(val) {
+        increase(e, val) {
+            e.preventDefault();
             switch (val) {
                 case 'width':
                     this.settings.width++;
@@ -83,11 +85,11 @@ export default {
                                 <label for="width" class="form-label">width</label>
                                 <div class="input-group">
                                     <button class="btn btn-outline-secondary" type="button"
-                                        @click="decrease('width')">-</button>
+                                        @click="decrease($event, 'width')">-</button>
                                     <input type="number" class="form-control" id="width" placeholder="100"
                                         v-model="settings.width" style="width: 6em">
                                     <button class="btn btn-outline-secondary" type="button"
-                                        @click="increase('width')">+</button>
+                                        @click="increase($event, 'width')">+</button>
                                 </div>
                             </div>
                         </div>
@@ -115,11 +117,11 @@ export default {
 
                                         <div class="input-group">
                                             <button class="btn btn-outline-secondary" type="button"
-                                                @click="decrease('imgSize')">-</button>
+                                                @click="decrease($event, 'imgSize')">-</button>
                                             <input class="form-control" v-model="settings.imgSize" id="imgSize"
                                                 type="number" style="width: 4em">
                                             <button class="btn btn-outline-secondary" type="button"
-                                                @click="increase('imgSize')">+</button>
+                                                @click="increase($event, 'imgSize')">+</button>
                                         </div>
                                     </div>
                                     <div class="col-sm-auto">
@@ -127,16 +129,17 @@ export default {
 
                                         <div class="input-group">
                                             <button class="btn btn-outline-secondary" type="button"
-                                                @click="decrease('margin')">-</button>
+                                                @click="decrease($event, 'margin')">-</button>
                                             <input class="form-control" v-model="settings.margin" id="margin"
                                                 type="number" style="width: 4em">
                                             <button class="btn btn-outline-secondary" type="button"
-                                                @click="increase('margin')">+</button>
+                                                @click="increase($event, 'margin')">+</button>
                                         </div>
 
                                     </div>
                                     <div class="col-sm-auto">
-                                        <label for="position" class="form-label" style="display: block;">position</label>
+                                        <label for="position" class="form-label"
+                                            style="display: block;">position</label>
                                         <div class="btn-group" role="group" id="position" aria-label="motif position">
                                             <input type="radio" class="btn-check" name="position" id="above"
                                                 autocomplete="off" v-model="settings.pos" value="above">

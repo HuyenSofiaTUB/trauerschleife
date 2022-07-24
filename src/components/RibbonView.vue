@@ -88,7 +88,7 @@ export default {
 
             var xOffset, yOffset;
             if (this.rotated) {
-                yOffset = width / 2 + 0.75*lineHeight - lines.length * 0.5 * lineHeight;
+                yOffset = width / 2 + 0.75 * lineHeight - lines.length * 0.5 * lineHeight;
                 if (this.pic != 'none') {
                     xOffset = (height - margin - imgSize) / 2;
                     doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", height - imgSize, yOffset, imgSize, imgSize);
@@ -98,20 +98,22 @@ export default {
             } else {
                 xOffset = width / 2;
                 if (this.pic != 'none') {
-                    yOffset = (height - margin - imgSize) / 2 + 0.75*lineHeight - lines.length * 0.5 * lineHeight;
+                    yOffset = (height - margin - imgSize) / 2 + 0.75 * lineHeight - lines.length * 0.5 * lineHeight;
                     doc.addImage(require('../assets/motifs/' + this.pic + '.png'), "PNG", xOffset, height - imgSize, imgSize, imgSize);
                 } else {
-                    yOffset = height / 2 + 0.75*lineHeight - lines.length * 0.5 * lineHeight;
+                    yOffset = height / 2 + 0.75 * lineHeight - lines.length * 0.5 * lineHeight;
                 }
             }
 
             doc.text(lines, xOffset, yOffset, null, null, 'center');
             doc.save("schleife.pdf");
         },
-        decrease() {
+        decrease(e) {
+            e.preventDefault();
             this.size--;
         },
-        increase() {
+        increase(e) {
+            e.preventDefault();
             this.size++;
         }
     },
@@ -186,8 +188,8 @@ export default {
                             </select>
                         </div>
                         <div class="col-sm-auto p-1">
-                            <edit-modal :pic="pic" :width="width" :imgSize="imgSize" :margin="margin"
-                                :pos="pos" @madechanges="saveChanges"></edit-modal>
+                            <edit-modal :pic="pic" :width="width" :imgSize="imgSize" :margin="margin" :pos="pos"
+                                @madechanges="saveChanges"></edit-modal>
 
                             <button type="button" class="btn btn-primary btn-lg mx-1" @click="download">
                                 Print
@@ -277,6 +279,4 @@ p.print {
         margin-top: 65px;
     }
 }
-
-
 </style>
