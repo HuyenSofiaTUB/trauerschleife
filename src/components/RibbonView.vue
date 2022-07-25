@@ -154,6 +154,7 @@ export default {
 </script>
 
 <template>
+    <help-modal></help-modal>
     <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light dock">
         <div class="container-fluid">
             <a class="navbar-brand">RibbonPrint</a>
@@ -161,15 +162,7 @@ export default {
                 aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <help-modal></help-modal>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://github.com/huyenngn/Schleifendruck">Github</a>
-                    </li>
-                </ul>
+            <div class="collapse navbar-collapse justify-content-center" id="navbarTogglerDemo01">
                 <form class="d-flex">
                     <div class="row justify-content-center align-items-center">
                         <div class="col p-1">
@@ -282,7 +275,7 @@ div.page {
     justify-content: center;
     align-items: center;
     position: relative;
-    margin: 1.5rem auto;
+    margin: 1.5rem auto 10rem auto;
     padding: 1rem 0rem;
 }
 
@@ -302,7 +295,8 @@ p.print {
 .dock {
     border-radius: 10px;
     padding: 1rem 1rem;
-    margin: 2.5rem 2rem;
+    margin: 2.5rem 10%;
+    box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5);
 }
 
 #size {

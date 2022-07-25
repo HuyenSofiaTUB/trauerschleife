@@ -1,5 +1,5 @@
 <template>
-  <RibbonView/>
+  <RibbonView />
 </template>
 
 <script>
@@ -9,7 +9,7 @@ export default {
   name: 'App',
   components: {
     RibbonView
-}
+  }
 }
 </script>
 
@@ -20,19 +20,20 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: #000000;
+
 }
 
 html {
-  background-color: rgb(204, 204, 204);
+  background: rgb(204, 204, 204);
 }
 
 input[type='number'] {
-    -moz-appearance:textfield;
+  -moz-appearance: textfield;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
+  -webkit-appearance: none;
 }
 
 @font-face {
@@ -58,6 +59,7 @@ input::-webkit-inner-spin-button {
   font-weight: bold;
   font-style: italic;
 }
+
 @font-face {
   font-family: Playfair;
   src: url(./assets/Playfair/PlayfairDisplay-Regular.ttf);

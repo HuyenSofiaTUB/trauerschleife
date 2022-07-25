@@ -7,7 +7,12 @@ export default {
 
 <template>
     <!-- Button trigger modal -->
-    <a class="nav-link" aria-current="page" href="" data-bs-toggle="modal" data-bs-target="#helpModal">Help</a>
+    <a aria-current="page" href="" data-bs-toggle="modal" data-bs-target="#helpModal">
+        <div class="circle">
+            <p class="text">?</p>
+        </div>
+    </a>
+
     <!-- Modal -->
     <div class="modal" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-fullscreen-sm-down modal-dialog-scrollable modal-dialog-centered">
@@ -36,6 +41,27 @@ export default {
 </template>
 
 <style>
+.circle {
+    color: black;
+    background-color: white;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    flex-direction: column;
+    height: 2em;
+    width: 2em;
+    margin-left: 1rem;
+    position: absolute;
+    box-shadow: 0 0 0.3cm rgba(0, 0, 0, 0.3);
+}
+
+.text {
+    margin: auto;
+    font-weight: bold;
+    font-size: 1em;
+}
+
 .modal-backdrop {
     z-index: 1000 !important;
 }
