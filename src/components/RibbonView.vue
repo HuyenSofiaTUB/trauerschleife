@@ -310,9 +310,4 @@ p.print {
     }
 }
 
-/* @media screen and (max-width: 991px) {
-    div.page {
-        margin-top: 65px;
-    }
-} */
 </style>
