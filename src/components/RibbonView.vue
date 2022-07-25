@@ -72,14 +72,14 @@ export default {
         },
         download() {
             var text = this.text;
-            var millimeter = 25.4 / 72;
-            var pixel = 96 / 72;
-            var width = this.width / millimeter;
-            var height = document.getElementById('inner').offsetHeight / pixel;
+            var millimeter = 72 / 25.4;
+            var pixel = 72 / 96;
+            var width = this.width * millimeter;
+            var height = document.getElementById('inner').offsetHeight * pixel;
             console.log({ width, height });
-            var size = (this.size - 1) / millimeter;
-            var imgSize = this.imgSize / millimeter;
-            var margin = this.margin / millimeter;
+            var size = this.size * millimeter;
+            var imgSize = this.imgSize * millimeter;
+            var margin = this.margin * millimeter;
 
             var mode = ((width > height && !this.rotated) || (width < height && this.rotated)) ? 'l' : 'p';
             var doc = new jsPDF(mode, 'pt', [width, height]);
