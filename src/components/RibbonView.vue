@@ -157,7 +157,6 @@ export default {
     <help-modal></help-modal>
     <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light dock">
         <div class="container-fluid">
-            <a class="navbar-brand">RibbonPrint</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01"
                 aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -167,7 +166,6 @@ export default {
                     <div class="row justify-content-center align-items-center">
                         <div class="col p-1">
                             <select class="form-select" id="fonts" v-model="font">
-                                <option value="courier">Courier</option>
                                 <option value="times">Times</option>
                                 <option value="helvetica">Helvetica</option>
                                 <option value="Noto">Noto</option>
