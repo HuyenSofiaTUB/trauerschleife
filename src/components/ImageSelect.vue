@@ -37,7 +37,7 @@ function uploadImage(file) {
                 <img :src="image" />
             </RadioButton>
         </div>
-        <FileUpload @change="uploadImage">
+        <FileUpload @change="uploadImage" accept="image/gif, image/bmp, image/png, image/webp">
             <Button>
                 <IconUpload /> Upload Image
             </Button>

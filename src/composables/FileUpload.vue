@@ -2,7 +2,7 @@
 const props = defineProps({
     accept: {
         type: String,
-        default: 'image/*'
+        default: '*'
     }
 })
 const emits = defineEmits(['change'])

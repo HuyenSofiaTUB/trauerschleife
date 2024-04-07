@@ -14,7 +14,7 @@ const settings = useSettingsStore();
 
 <template>
     <div class="image-settings">
-        <div>Flip and Rotate</div>
+        <p>Flip and Rotate</p>
         <div class="image-settings__transform">
             <Button @click="settings.rotateImageLeft">
                 <IconRotateLeft />
@@ -29,11 +29,11 @@ const settings = useSettingsStore();
                 <IconFlipY />
             </CheckButton>
         </div>
-        <div>Size</div>
+        <p>Size</p>
         <div>
             <NumberInput :value="settings.imgSize" unit="mm" @change="settings.setImageSize" />
         </div>
-        <div>Position</div>
+        <p>Position</p>
         <div>
             <RadioButton @click="settings.setImagePositionTop" name="position" :checked="settings.isImgPositionTop">
                 T
@@ -49,11 +49,11 @@ const settings = useSettingsStore();
                 R
             </RadioButton>
         </div>
-        <div>Margin</div>
+        <p>Margin</p>
         <div>
             <NumberInput :value="settings.imgMargin" unit="mm" @change="settings.setImageMargin" />
         </div>
-        <div>Rotation</div>
+        <p>Rotation</p>
         <div>
             <NumberInput :value="settings.imgRotation" unit="&deg;" @change="settings.setImageRotation" />
         </div>
@@ -64,10 +64,18 @@ const settings = useSettingsStore();
 .image-settings {
     display: flex;
     flex-direction: column;
-    gap: 3px;
+    gap: 5px;
 }
 
-.image-settings>div {
+p {
+    padding-top: 5px;
+}
+
+.image-settings>p:not(:first-child) {
+    border-top: 1px solid var(--color-border);
+}
+
+.image-settings>* {
     display: flex;
     gap: 3px;
     justify-content: center;

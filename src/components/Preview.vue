@@ -52,7 +52,6 @@ function getImageFilter() {
     return result.filter;
 }
 
-
 </script>
 
 <template>
@@ -84,8 +83,7 @@ function getImageFilter() {
     margin-left: v-bind('getZoomedValue(settings.pageMarginLeft)');
     margin-right: v-bind('getZoomedValue(settings.pageMarginRight)');
     margin-bottom: v-bind('getZoomedValue(settings.pageMarginBottom)');
-    border: 1.5px dashed v-bind('settings.bgColor');
-    filter: invert(20%);
+    border: 1.5px dashed var(--color-border);
     cursor: text;
 }
 
