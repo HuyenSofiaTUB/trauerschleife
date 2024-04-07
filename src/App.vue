@@ -1,87 +1,64 @@
-<template>
-  <RibbonView />
-</template>
+<script setup>
+import Preview from '@/components/Preview.vue';
+import TextSettings from '@/components/TextSettings.vue';
+import { useSettingsStore } from "@/stores/settings";
+const settings = useSettingsStore();
 
-<script>
-import RibbonView from './components/RibbonView.vue'
 
-export default {
-  name: 'App',
-  components: {
-    RibbonView
-  }
-}
 </script>
 
-<style>
-#app {
-  background-color: rgb(204, 204, 204);
-  font-family: Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #000000;
+<template>
+  <header>
+    <span contenteditable @input="settings.setTitle($event.target.innerText)">{{ settings.title }}</span>
+    <TextSettings />
+  </header>
+  <main>
+    <Preview />
+  </main>
+</template>
 
+<style scoped>
+header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  top: 0;
+  padding: 2rem 10px 10px 10px;
+  position: sticky;
+  z-index: 10;
 }
 
-html {
-  background: rgb(204, 204, 204);
+main {
+  margin-top: 10px;
 }
 
-input[type='number'] {
-  -moz-appearance: textfield;
+span {
+  font-size: 2rem;
+  text-align: start;
+  color: var(--color-text);
+  max-width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  border: 2px solid transparent;
+  border-radius: 5px;
+  padding: 0 10px;
 }
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+span:hover {
+  border-color: var(--color-border);
 }
 
-@font-face {
-  font-family: Noto;
-  src: url(./assets/Noto/NotoSerif-Regular.ttf);
-}
-
-@font-face {
-  font-family: Noto;
-  src: url(./assets/Noto/NotoSerif-Bold.ttf);
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: Noto;
-  src: url(./assets/Noto/NotoSerif-Italic.ttf);
-  font-style: italic;
-}
-
-@font-face {
-  font-family: Noto;
-  src: url(./assets/Noto/NotoSerif-BoldItalic.ttf);
-  font-weight: bold;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: Playfair;
-  src: url(./assets/Playfair/PlayfairDisplay-Regular.ttf);
-}
-
-@font-face {
-  font-family: Playfair;
-  src: url(./assets/Playfair/PlayfairDisplay-Bold.ttf);
-  font-weight: bold;
-}
-
-@font-face {
-  font-family: Playfair;
-  src: url(./assets/Playfair/PlayfairDisplay-Italic.ttf);
-  font-style: italic;
-}
-
-@font-face {
-  font-family: Playfair;
-  src: url(./assets/Playfair/PlayfairDisplay-BoldItalic.ttf);
-  font-weight: bold;
-  font-style: italic;
+span:focus {
+  border-color: var(--color-primary);
 }
 </style>
 
+<style>
+span {
+  outline: none;
+  background-color: transparent;
+}
+</style>

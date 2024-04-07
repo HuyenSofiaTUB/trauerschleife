@@ -1,27 +1,29 @@
-# Ribbon Designer
-The Ribbon Designer Web App is an online tool that allows users to easily design ribbons for print. The app provides users with a simple and intuitive interface that enables them to add text and motifs to their ribbon designs, change the font type and size, and preview the design as it would appear once printed.
+# Ribbon Studio
 
-DEMO: https://tranquil-taffy-c57164.netlify.app/
+This template should help get you started developing with Vue 3 in Vite.
 
-## Project setup
-```
+## Recommended IDE Setup
+
+[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+
+## Customize configuration
+
+See [Vite Configuration Reference](https://vitejs.dev/config/).
+
+## Project Setup
+
+```sh
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
+### Compile and Hot-Reload for Development
+
+```sh
+npm run dev
 ```
 
-### Compiles and minifies for production
-```
+### Compile and Minify for Production
+
+```sh
 npm run build
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).

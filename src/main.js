@@ -1,6 +1,16 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import "bootstrap"
+import "./assets/main.css";
 
-createApp(App).mount('#app')
+import { createApp } from "vue";
+import { createPinia } from "pinia";
+import { PiniaUndo } from "pinia-undo";
+
+import App from "./App.vue";
+
+const app = createApp(App);
+const pinia = createPinia();
+
+pinia.use(PiniaUndo);
+
+app.use(pinia);
+
+app.mount("#app");

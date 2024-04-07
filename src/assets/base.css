@@ -1,0 +1,62 @@
+:root {
+  --color-background: #f7f7f7;
+  --color-background-soft: #f2f2f2;
+  --color-background-mute: #f0f0f0;
+
+  --color-border: #2d2d2d;
+
+  --color-shadow: rgba(0, 0, 0, 0.14);
+  --color-shadow-soft: rgba(0, 0, 0, 0.08);
+
+  --color-heading: #3c3c3c;
+  --color-text: #2c3e50;
+
+  --color-primary: #00bd7e;
+
+  --image-filter: grayscale(1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-background: #181818;
+    --color-background-soft: #222222;
+    --color-background-mute: #303030;
+
+    --color-border: #444444;
+
+    --color-shadow: #171717;
+    --color-shadow-soft: #111111;
+
+    --color-heading: #f7f7f7;
+    --color-text: #dadada;
+
+    --color-primary: #03704c;
+
+    --image-filter: invert(96%) sepia(2%) saturate(13%) hue-rotate(346deg)
+      brightness(94%) contrast(88%);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: bold;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  color: var(--color-text);
+  background: var(--color-background-soft);
+  transition: color 0.5s, background-color 0.5s;
+  line-height: 1.6;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-size: 16px;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
