@@ -27,7 +27,7 @@ header {
   top: 0;
   padding: 2rem 10px 10px 10px;
   position: sticky;
-  z-index: 10;
+  z-index: 20;
 }
 
 main {

@@ -12,17 +12,21 @@ function getZoomedValue(value) {
     return value * view.zoom / 100 + 'mm';
 }
 
-function getAlignItems() {
-    if (settings.isAlignLeft) return 'start';
-    else if (settings.isAlignRight) return 'end';
-    else return settings.align;
+function isCollumn() {
+    return settings.isImgPositionTop || settings.isImgPositionBottom;
 }
 
-function getJustifyContent() {
-    if (settings.isJustifyStart) return 'flex-start';
-    else if (settings.isJustifyEnd) return 'flex-end';
+function getContentAlign() {
+    if (isCollumn()) {
+        if (settings.isJustifyStart) return 'flex-start';
+        else if (settings.isJustifyEnd) return 'flex-end';
+        else return settings.justify;
+    }
+    if (settings.isJustifyStart) return 'flex-end';
+    else if (settings.isJustifyEnd) return 'flex-start';
     else return settings.justify;
 }
+
 
 function getImgMargin() {
     if (settings.isImgPositionTop) return "0 0 " + getZoomedValue(settings.imgMargin) + " 0";
@@ -55,17 +59,19 @@ function getImageFilter() {
 </script>
 
 <template>
-    <div class="preview" @click="textRef.focus">
+    <div id="preview" @click="textRef.focus">
         <div class="border">
-            <span ref="textRef" contenteditable id="text-preview" @input="settings.setText($event.target.innerHTML)"
-                v-html="view.text"></span>
-            <img :src="settings.img" alt="Preview image" class="image-preview" :style="getImageFilter()" />
+            <div id="content-preview">
+                <span ref="textRef" contenteditable id="text-preview" @input="settings.setText($event.target.innerHTML)"
+                    v-html="view.text"></span>
+                <img :src="settings.img" alt="Preview image" id="image-preview" :style="getImageFilter()" />
+            </div>
         </div>
     </div>
 </template>
 
 <style scoped>
-.preview {
+#preview {
     width: v-bind('getZoomedValue(settings.pageWidth)');
     z-index: 5;
     background-color: v-bind('settings.bgColor');
@@ -76,8 +82,8 @@ function getImageFilter() {
 
 .border {
     display: flex;
-    flex-direction: v-bind('settings.isImgPositionTop || settings.isImgPositionBottom ? "column" : "row"');
-    align-items: v-bind('settings.rotated ? getJustifyContent() : getAlignItems()');
+    flex-direction: column;
+    align-items: center;
     z-index: 7;
     margin-top: v-bind('getZoomedValue(settings.pageMarginTop)');
     margin-left: v-bind('getZoomedValue(settings.pageMarginLeft)');
@@ -87,10 +93,17 @@ function getImageFilter() {
     cursor: text;
 }
 
+#content-preview {
+    display: flex;
+    min-width: 100%;
+    width: fit-content;
+    flex-direction: v-bind('settings.isImgPositionTop || settings.isImgPositionBottom ? "column" : "row"');
+    align-items: v-bind('getContentAlign()');
+}
+
 #text-preview {
     display: flex;
     width: fit-content;
-    z-index: 10;
     min-width: 1rem;
     min-height: 3rem;
     white-space: nowrap;
@@ -100,14 +113,12 @@ function getImageFilter() {
     font-size: v-bind('getZoomedValue(settings.fontSize)');
     font-style: v-bind("settings.italic ? 'italic' : 'normal'");
     font-family: v-bind('settings.font');
-    align-items: v-bind('settings.justify');
     text-align: v-bind('settings.align');
-    justify-content: v-bind('settings.align');
     line-height: v-bind('settings.lineHeight');
-    writing-mode: v-bind("settings.rotated ? 'vertical-lr' : 'horizontal-tb'");
+    writing-mode: v-bind("settings.rotated ? 'vertical-rl' : 'horizontal-tb'");
 }
 
-.image-preview {
+#image-preview {
     display: v-bind('settings.img ? "block" : "none"');
     width: v-bind('getZoomedValue(settings.imgSize)');
     height: auto;
@@ -116,11 +127,11 @@ function getImageFilter() {
     transform: v-bind('getScale()') v-bind('getRotation()');
 }
 
-.preview:hover {
+#preview:hover {
     border-color: var(--color-border);
 }
 
-.preview:focus-within {
+#preview:focus-within {
     border-color: var(--color-primary);
 }
 </style>
