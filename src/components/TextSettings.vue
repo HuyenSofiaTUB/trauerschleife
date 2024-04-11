@@ -71,9 +71,14 @@ function saveSettings() {
     URL.revokeObjectURL(url);
 }
 
+function resetZoom() {
+    view.setZoom(100);
+    return Promise.resolve("success");
+}
+
 function changePrintPageSize(width) {
     let styleSheet = document.getElementById('printStyles');
-    let height = document.getElementById('preview').offsetHeight * 0.264583333 + settings.fontSize + 'mm';
+    let height = document.getElementById('preview').offsetHeight * 0.264583333 + settings.pageMarginTop + settings.pageMarginBottom + 'mm';
     if (!styleSheet) {
         styleSheet = document.createElement('style');
         styleSheet.id = 'printStyles';
@@ -84,9 +89,11 @@ function changePrintPageSize(width) {
 }
 
 function printRibbon() {
-    view.zoom = 100;
-    window.print();
-    changePrintPageSize(settings.pageWidth + 'mm');
+    resetZoom().then(() => {
+        changePrintPageSize(settings.pageWidth + 'mm');
+        window.print();
+        view.undo();
+    });
 }
 </script>
 
@@ -123,8 +130,8 @@ function printRibbon() {
             <template v-slot:button>
                 <div class="dropdown-font">{{ settings.font }}</div>
             </template>
-            <RadioBox v-for="font in ['Arial', 'Times', 'Courier']" @click="settings.setFont(font)"
-                :checked="settings.font == font" name="font">
+            <RadioBox v-for="font in ['Arial', 'Times', 'Courier', 'Playfair', 'Cormorant', 'Amiri']"
+                @click="settings.setFont(font)" :checked="settings.font == font" name="font">
                 {{ font }}
             </RadioBox>
         </Dropdown>

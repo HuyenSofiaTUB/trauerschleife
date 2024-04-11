@@ -58,3 +58,49 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@font-face {
+  font-family: "Playfair";
+  src: url("@/assets/fonts/Playfair/Playfair.ttf");
+}
+
+@font-face {
+  font-family: "Playfair";
+  src: url("@/assets/fonts/Playfair/Playfair-Italic.ttf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Cormorant";
+  src: url("@/assets/fonts/Cormorant/Cormorant.ttf");
+}
+
+@font-face {
+  font-family: "Cormorant";
+  src: url("@/assets/fonts/Cormorant/Cormorant-Italic.ttf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Amiri";
+  src: url("@/assets/fonts/Amiri/Amiri-Regular.ttf");
+}
+
+@font-face {
+  font-family: "Amiri";
+  src: url("@/assets/fonts/Amiri/Amiri-Bold.ttf");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Amiri";
+  src: url("@/assets/fonts/Amiri/Amiri-BoldItalic.ttf");
+  font-weight: bold;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Amiri";
+  src: url("@/assets/fonts/Amiri/Amiri-Italic.ttf");
+  font-style: italic;
+}
