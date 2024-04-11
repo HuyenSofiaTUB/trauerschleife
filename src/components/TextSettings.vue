@@ -195,13 +195,13 @@ function printRibbon() {
             </RadioBox>
         </Dropdown>
         <div class="line"></div>
-        <Dropdown :right="true" :indicator="false" type="dropdown-box">
+        <Dropdown :indicator="false" type="dropdown-box">
             <template v-slot:button>
                 <IconImage />
             </template>
             <ImageSelect />
         </Dropdown>
-        <Dropdown :right="true" :indicator="false" type="dropdown-box">
+        <Dropdown :indicator="false" type="dropdown-box">
             <template v-slot:button>
                 <IconResizeImage />
             </template>
@@ -218,7 +218,7 @@ function printRibbon() {
                 <IconBackgroundColor />
             </Button>
         </ColorPalette>
-        <Dropdown :right="true" :indicator="false" type="dropdown-box">
+        <Dropdown :indicator="false" type="dropdown-box">
             <template v-slot:button>
                 <IconEdit />
             </template>
