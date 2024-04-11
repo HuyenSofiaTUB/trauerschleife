@@ -7,6 +7,7 @@ import { hexToRgb, Color, Solver } from "@/helpers/filter";
 const settings = useSettingsStore();
 const view = useViewStore();
 const textRef = ref(null);
+const previewRef = ref(null);
 
 function getZoomedValue(value) {
     return value * view.zoom / 100 + 'mm';
@@ -55,11 +56,10 @@ function getImageFilter() {
     const result = solver.solve();
     return result.filter;
 }
-
 </script>
 
 <template>
-    <div id="preview" @click="textRef.focus">
+    <div id="preview" @click="textRef.focus" ref="previewRef">
         <div class="border">
             <div id="content-preview">
                 <span ref="textRef" contenteditable id="text-preview" @input="settings.setText($event.target.innerHTML)"
@@ -133,5 +133,36 @@ function getImageFilter() {
 
 #preview:focus-within {
     border-color: var(--color-primary);
+}
+</style>
+
+<style>
+@media print {
+
+    *,
+    *::before,
+    *::after {
+        background-color: transparent !important;
+        color: #000 !important;
+        box-shadow: none !important;
+        filter: none !important;
+        border: none !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+
+    html,
+    body {
+        visibility: hidden;
+    }
+
+    #preview {
+        visibility: visible;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+
+
 }
 </style>

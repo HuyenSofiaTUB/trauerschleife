@@ -71,8 +71,22 @@ function saveSettings() {
     URL.revokeObjectURL(url);
 }
 
+function changePrintPageSize(width) {
+    let styleSheet = document.getElementById('printStyles');
+    let height = document.getElementById('preview').offsetHeight * 0.264583333 + settings.fontSize + 'mm';
+    if (!styleSheet) {
+        styleSheet = document.createElement('style');
+        styleSheet.id = 'printStyles';
+        document.head.appendChild(styleSheet);
+    }
+
+    styleSheet.textContent = `@page { size: ${width} ${height}; margin: 0;}`;
+}
+
 function printRibbon() {
+    view.zoom = 100;
     window.print();
+    changePrintPageSize(settings.pageWidth + 'mm');
 }
 </script>
 

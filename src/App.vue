@@ -28,10 +28,11 @@ header {
   padding: 2rem 10px 10px 10px;
   position: sticky;
   z-index: 20;
+  background-color: var(--color-background-soft);
 }
 
 main {
-  margin-top: 10px;
+  margin: 10px 0 50px 0;
 }
 
 span {

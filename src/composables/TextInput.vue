@@ -8,18 +8,26 @@ const props = defineProps({
         type: String,
         default: "100%",
     },
+    readonly: {
+        type: Boolean,
+        default: false,
+    },
 });
 
 const emits = defineEmits(["change", "input"]);
 </script>
 
 <template>
-    <input type="text" @change="$emit('change', $event.target.value)" @input="$emit('input', $event.target.value)"
-        :value="value" />
+    <div v-if="readonly">
+        {{ value }}
+    </div>
+    <input v-else type="text" @change="$emit('change', $event.target.value)"
+        @input="$emit('input', $event.target.value)" :value="value" />
 </template>
 
 <style scoped>
-input[type="text"] {
+div,
+input {
     min-width: 1rem;
     width: v-bind('width');
     border: 0;
@@ -32,7 +40,7 @@ input[type="text"] {
     padding: 0 3px;
 }
 
-input[type="text"]:focus {
+input:focus {
     outline: none;
 }
 </style>
