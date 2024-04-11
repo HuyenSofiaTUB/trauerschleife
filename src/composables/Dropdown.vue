@@ -58,6 +58,7 @@ const props = defineProps({
     box-shadow: var(--color-shadow) 0px 3px 8px;
     margin-top: 5px;
     min-width: 100%;
+    z-index: 25;
 }
 
 .dropdown:focus-within .icon-up,
