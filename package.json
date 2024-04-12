@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "jspdf": "^2.5.1",
     "pinia": "^2.1.7",
     "pinia-undo": "^0.2.4",
     "vue": "^3.4.21"
