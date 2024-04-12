@@ -1,15 +1,15 @@
 <script setup>
-import Preview from '@/components/Preview.vue';
-import TextSettings from '@/components/TextSettings.vue';
+import Preview from "@/components/Preview.vue";
+import TextSettings from "@/components/TextSettings.vue";
 import { useSettingsStore } from "@/stores/settings";
 const settings = useSettingsStore();
-
-
 </script>
 
 <template>
   <header>
-    <span contenteditable @input="settings.setTitle($event.target.innerText)">{{ settings.title }}</span>
+    <span contenteditable @input="settings.setTitle($event.target.innerText)">{{
+      settings.title
+    }}</span>
     <TextSettings />
   </header>
   <main>

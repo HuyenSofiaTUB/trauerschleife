@@ -42,16 +42,18 @@
 *::after {
   box-sizing: border-box;
   margin: 0;
-  font-weight: bold;
 }
 
 input,
 textarea,
-span {
+[contenteditable] {
+  -webkit-user-select: text;
   -webkit-user-modify: read-write;
+  user-select: text;
 }
 
 body {
+  font-weight: bold;
   height: 100vh;
   color: var(--color-text);
   background: var(--color-background-soft);

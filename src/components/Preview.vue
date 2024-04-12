@@ -118,7 +118,7 @@ function getImageFilter() {
 }
 
 #text-preview {
-  display: flex;
+  display: inline-block;
   width: fit-content;
   min-width: 1rem;
   min-height: 3rem;
