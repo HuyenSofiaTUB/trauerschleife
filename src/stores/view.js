@@ -10,10 +10,11 @@ export const useViewStore = defineStore("view", {
       this.text = text;
     },
     setZoom(zoom) {
+      if (typeof zoom === "string") zoom = zoom.replace("%", "");
       if (isNaN(zoom) || isNaN(parseFloat(zoom))) {
-        this.zoom = 100;
+        return;
       } else if (zoom < 50) this.zoom = 50;
-      else if (zoom > 500) this.zoom = 500;
+      else if (zoom > 1000) this.zoom = 1000;
       else this.zoom = zoom;
     },
   },

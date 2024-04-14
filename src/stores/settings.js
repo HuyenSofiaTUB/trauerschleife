@@ -88,6 +88,9 @@ export const useSettingsStore = defineStore("settings", {
       this.color = color;
     },
     setFontSize(size) {
+      if (isNaN(size) || isNaN(parseFloat(size))) {
+        return;
+      }
       this.fontSize = Math.max(1, size);
     },
     setFont(font) {
@@ -124,6 +127,10 @@ export const useSettingsStore = defineStore("settings", {
       this.img = img;
     },
     setImageSize(size) {
+      if (typeof size === "string") size = size.replace("mm", "");
+      if (isNaN(size) || isNaN(parseFloat(size))) {
+        return;
+      }
       this.imgSize = Math.max(1, size);
     },
     setImagePositionTop() {
@@ -139,6 +146,11 @@ export const useSettingsStore = defineStore("settings", {
       this.imgPosition = "right";
     },
     setImageRotation(rotation) {
+      if (typeof rotation === "string")
+        rotation = rotation.replace("&deg;", "");
+      if (isNaN(rotation) || isNaN(parseFloat(rotation))) {
+        return;
+      }
       if (rotation >= 360) {
         rotation -= 360;
       } else if (rotation < 0) {
@@ -159,21 +171,45 @@ export const useSettingsStore = defineStore("settings", {
       this.imgFlipY = !this.imgFlipY;
     },
     setImageMargin(margin) {
+      if (typeof margin === "string") margin = margin.replace("mm", "");
+      if (isNaN(margin) || isNaN(parseFloat(margin))) {
+        return;
+      }
       this.imgMargin = margin;
     },
     setPageWidth(width) {
+      if (typeof margin === "string") margin = margin.replace("mm", "");
+      if (isNaN(margin) || isNaN(parseFloat(margin))) {
+        return;
+      }
       this.pageWidth = Math.max(1, width);
     },
     setPageMarginTop(margin) {
+      if (typeof margin === "string") margin = margin.replace("mm", "");
+      if (isNaN(margin) || isNaN(parseFloat(margin))) {
+        return;
+      }
       this.pageMarginTop = margin;
     },
     setPageMarginBottom(margin) {
+      if (typeof margin === "string") margin = margin.replace("mm", "");
+      if (isNaN(margin) || isNaN(parseFloat(margin))) {
+        return;
+      }
       this.pageMarginBottom = margin;
     },
     setPageMarginLeft(margin) {
+      if (typeof margin === "string") margin = margin.replace("mm", "");
+      if (isNaN(margin) || isNaN(parseFloat(margin))) {
+        return;
+      }
       this.pageMarginLeft = margin;
     },
     setPageMarginRight(margin) {
+      if (typeof margin === "string") margin = margin.replace("mm", "");
+      if (isNaN(margin) || isNaN(parseFloat(margin))) {
+        return;
+      }
       this.pageMarginRight = margin;
     },
     setTitle(title) {

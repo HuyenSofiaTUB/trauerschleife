@@ -121,7 +121,7 @@ function printRibbon() {
         0
       );
     }
-    doc.save(settings.title + ".pdf");
+    pdf.output("dataurl", { filename: settings.title + ".pdf" });
   });
 }
 </script>
