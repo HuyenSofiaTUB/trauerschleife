@@ -121,8 +121,7 @@ function printRibbon() {
         0
       );
     }
-    doc.autoPrint();
-    window.open(doc.output("bloburl", { filename: settings.title + ".pdf" }));
+    doc.save(settings.title + ".pdf");
   });
 }
 </script>
