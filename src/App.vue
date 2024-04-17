@@ -2,7 +2,9 @@
 import Preview from "@/components/Preview.vue";
 import TextSettings from "@/components/TextSettings.vue";
 import { useSettingsStore } from "@/stores/settings";
+import { useViewStore } from "@/stores/view";
 const settings = useSettingsStore();
+const view = useViewStore();
 
 function isiOS() {
   return navigator.userAgent.match(/ipad|ipod|iphone/i);
@@ -26,9 +28,11 @@ document.addEventListener("scroll", function () {
 
 <template>
   <header>
-    <span contenteditable @input="settings.setTitle($event.target.innerText)">{{
-      settings.title
-    }}</span>
+    <span
+      contenteditable
+      @input="settings.setTitle($event.target.innerText)"
+      v-html="view.title"
+    ></span>
     <TextSettings />
   </header>
   <main>

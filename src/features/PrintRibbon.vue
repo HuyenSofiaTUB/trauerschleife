@@ -8,13 +8,12 @@ import { useViewStore } from "@/stores/view";
 const settings = useSettingsStore();
 const view = useViewStore();
 
-function resetZoom() {
-  view.setZoom(100);
-  return Promise.resolve("success");
-}
-
 function pxToMm(px) {
   return px * 0.264583333;
+}
+
+function pxToMmZoomed(px) {
+  return px * 0.264583333 * (100 / view.zoom);
 }
 
 function changePrintPageSize(width) {
@@ -34,95 +33,97 @@ function changePrintPageSize(width) {
 }
 
 function printRibbon() {
-  resetZoom().then(() => {
-    if (!navigator.userAgentData.mobile) {
+  if (!navigator.userAgentData.mobile) {
+    view.setZoom(100);
+    setTimeout(() => {
       changePrintPageSize(settings.pageWidth + "mm");
       window.print();
       view.undo();
-      return;
+    }, 100);
+    return;
+  }
+  let preview = document.getElementById("preview");
+  let textPreview = document.getElementById("text-preview");
+  let imagePreview = document.getElementById("image-preview");
+
+  let height = pxToMmZoomed(preview.offsetHeight);
+  let width = settings.pageWidth;
+  let mode =
+    (height > width && settings.rotated) ||
+    (height < width && !settings.rotated)
+      ? "l"
+      : "p";
+  let doc = new jsPDF({
+    orientation: mode,
+    unit: "mm",
+    format: [width, height],
+  });
+
+  if (settings.rotated) {
+    var textX = pxToMmZoomed(textPreview.offsetTop - preview.offsetTop);
+    var textY = pxToMmZoomed(
+      preview.offsetLeft +
+        preview.offsetWidth -
+        textPreview.offsetLeft -
+        textPreview.offsetWidth
+    );
+    if (settings.align == "center") {
+      textX += pxToMmZoomed(textPreview.offsetHeight / 2);
+    } else if (settings.align == "right") {
+      textX += pxToMmZoomed(textPreview.offsetHeight);
     }
-    let preview = document.getElementById("preview");
-    let textPreview = document.getElementById("text-preview");
-    let imagePreview = document.getElementById("image-preview");
+  } else {
+    var textX = pxToMmZoomed(textPreview.offsetLeft - preview.offsetLeft);
+    var textY = pxToMmZoomed(textPreview.offsetTop - preview.offsetTop);
+    if (settings.align == "center") {
+      textX += pxToMmZoomed(textPreview.offsetWidth / 2);
+    } else if (settings.align == "right") {
+      textX += pxToMmZoomed(textPreview.offsetWidth);
+    }
+  }
 
-    let height = pxToMm(preview.offsetHeight);
-    let width = settings.pageWidth;
-    let mode =
-      (height > width && settings.rotated) ||
-      (height < width && !settings.rotated)
-        ? "l"
-        : "p";
-    let doc = new jsPDF({
-      orientation: mode,
-      unit: "mm",
-      format: [width, height],
-    });
+  let lines = settings.text.split("<br>");
+  let fontStyle =
+    (settings.bold ? "bold" : "") + (settings.italic ? "italic" : "");
+  fontStyle = fontStyle ? fontStyle : "normal";
+  doc.setFont(settings.font, fontStyle);
+  doc.setFontSize(settings.fontSize * 2.83);
+  doc.text(lines, textX, textY, {
+    align: settings.align,
+    baseline: "top",
+    lineHeightFactor: settings.lineHeight,
+  });
 
+  if (settings.img) {
+    let image = new Image();
+    image.src = settings.img;
     if (settings.rotated) {
-      var textX = pxToMm(textPreview.offsetTop - preview.offsetTop);
-      var textY = pxToMm(
+      var imageX = pxToMmZoomed(imagePreview.offsetTop - preview.offsetTop);
+      var imageY = pxToMmZoomed(
         preview.offsetLeft +
           preview.offsetWidth -
-          textPreview.offsetLeft -
-          textPreview.offsetWidth
+          imagePreview.offsetLeft -
+          imagePreview.offsetWidth
       );
-      if (settings.align == "center") {
-        textX += pxToMm(textPreview.offsetHeight / 2);
-      } else if (settings.align == "right") {
-        textX += pxToMm(textPreview.offsetHeight);
-      }
     } else {
-      var textX = pxToMm(textPreview.offsetLeft - preview.offsetLeft);
-      var textY = pxToMm(textPreview.offsetTop - preview.offsetTop);
-      if (settings.align == "center") {
-        textX += pxToMm(textPreview.offsetWidth / 2);
-      } else if (settings.align == "right") {
-        textX += pxToMm(textPreview.offsetWidth);
-      }
+      var imageX = pxToMmZoomed(imagePreview.offsetLeft - preview.offsetLeft);
+      var imageY = pxToMmZoomed(imagePreview.offsetTop - preview.offsetTop);
     }
 
-    let lines = settings.text.split("<br>");
-    let fontStyle =
-      (settings.bold ? "bold" : "") + (settings.italic ? "italic" : "");
-    fontStyle = fontStyle ? fontStyle : "normal";
-    doc.setFont(settings.font, fontStyle);
-    doc.setFontSize(settings.fontSize * 2.83);
-    doc.text(lines, textX, textY, {
-      align: settings.align,
-      baseline: "top",
-      lineHeightFactor: settings.lineHeight,
-    });
-
-    if (settings.img) {
-      let image = new Image();
-      image.src = settings.img;
-      if (settings.rotated) {
-        var imageX = pxToMm(imagePreview.offsetTop - preview.offsetTop);
-        var imageY = pxToMm(
-          preview.offsetLeft +
-            preview.offsetWidth -
-            imagePreview.offsetLeft -
-            imagePreview.offsetWidth
-        );
-      } else {
-        var imageX = pxToMm(imagePreview.offsetLeft - preview.offsetLeft);
-        var imageY = pxToMm(imagePreview.offsetTop - preview.offsetTop);
-      }
-
-      doc.addImage(
-        image,
-        "PNG",
-        imageX,
-        imageY,
-        settings.imgSize,
-        pxToMm(imagePreview.offsetHeight),
-        "image",
-        "NONE",
-        0
-      );
-    }
-    pdf.output("dataurl", { filename: settings.title + ".pdf" });
-  });
+    doc.addImage(
+      image,
+      "PNG",
+      imageX,
+      imageY,
+      settings.imgSize,
+      pxToMmZoomed(imagePreview.offsetHeight),
+      "image",
+      "NONE",
+      0
+    );
+  }
+  let bloburl = doc.output("bloburl");
+  window.location.assign(bloburl);
 }
 </script>
 

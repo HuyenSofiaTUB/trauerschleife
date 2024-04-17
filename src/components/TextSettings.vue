@@ -40,11 +40,13 @@ const view = useViewStore();
 
 function undo() {
   settings.undo();
+  view.title = settings.title;
   view.text = settings.text;
 }
 
 function redo() {
   settings.redo();
+  view.title = settings.title;
   view.text = settings.text;
 }
 </script>
