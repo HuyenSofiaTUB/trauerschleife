@@ -18,28 +18,30 @@ function pxToMmZoomed(px) {
 
 function changePrintPageSize(width) {
   let styleSheet = document.getElementById("printStyles");
-  let height =
-    pxToMm(document.getElementById("preview").offsetHeight) +
-    settings.pageMarginTop +
-    settings.pageMarginBottom +
-    "mm";
+  let height = pxToMm(document.getElementById("preview").offsetHeight);
+
+  let orientation = height > width ? "landscape" : "portrait";
   if (!styleSheet) {
     styleSheet = document.createElement("style");
     styleSheet.id = "printStyles";
     document.head.appendChild(styleSheet);
   }
 
-  styleSheet.textContent = `@page { size: ${width} ${height}; margin: 0;}`;
+  styleSheet.textContent = `@page { size: ${width}mm ${height}mm; margin: 0; page-orientation: ${orientation}; }`;
 }
+
+addEventListener("beforeprint", () => {
+  view.setZoom(100);
+  changePrintPageSize(settings.pageWidth);
+});
+
+addEventListener("afterprint", () => {
+  view.undo();
+});
 
 function printRibbon() {
   if (!navigator.userAgentData.mobile) {
-    view.setZoom(100);
-    setTimeout(() => {
-      changePrintPageSize(settings.pageWidth + "mm");
-      window.print();
-      view.undo();
-    }, 100);
+    window.print();
     return;
   }
   let preview = document.getElementById("preview");
@@ -122,8 +124,7 @@ function printRibbon() {
       0
     );
   }
-  let bloburl = doc.output("bloburl");
-  window.location.assign(bloburl);
+  window.open(doc.output("bloburl", { filename: settings.title + ".pdf" }));
 }
 </script>
 
